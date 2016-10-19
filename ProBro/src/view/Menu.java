@@ -135,9 +135,9 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	
 			Commands com = new Commands(frame.mainPanel, source);
 
-			if (source == delete) {
+			/*if (source == delete) {
 				com.deleteFile(e);
-			}
+			}*/
 			if (source == open) {
 				com.openFile(e);
 			}

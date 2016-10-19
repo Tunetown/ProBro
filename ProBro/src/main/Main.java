@@ -32,34 +32,6 @@ import view.MainFrame;
 * Initial layout inspired by a file browser 
 * by Andrew Thompson, see http://codereview.stackexchange.com/q/4446/7784
 *  
-* 
-* TODO:
-* 
-* IMPROVEMENTS --------------------------------------------
-* - Sorting by size takes very long! Netbeans analyser!
-* 
-* - Documentation of views
-* - Show overall count of masters, mixes etc somewhere
-* - TODOs in DirENtry and ProjectDirEntry
-* 
-* - Test with real data (exact)!
-* 
-* - Bundle to APP
-* 		- Set file browser to default view (MainFrame)
-* 
-* PRIO LOW ------------------------------------------------
-* - BUG: Project view: Sorting by last modified date does not work (currently this does string comparison only)
-* - ZIP: Currently, the whole path is stored in the ZIP. Check this out (PRIO LOW)
-* - Tree: Select root does not work (PRIO LOW)
-* - BUG: Table row heights bigger after first view change? (PRIO LOW)
-* - All default values at least as attributes
-* - osx stuff http://alvinalexander.com/apple/mac/java-mac-native-look/Putting_your_application_na.shtml
-* 		-> build script not working, problem unsolved for now
-*
-* - DELETE: Evaluate console output of RM command (error if anything shown)
-*
-*
-*
 * @author Thomas Weber
 * @version 2016-10-03
 * @license LGPL

@@ -106,7 +106,7 @@ public class Commands {
 	 * 
 	 * @param ae
 	 * @throws Throwable
-	 */
+	 *
 	public void deleteFile(ActionEvent ae) throws Throwable {
 		if (OS.isWindows()) {
 			JOptionPane.showMessageDialog(null, Messages.getString("Commands.DelNotAllowed"), Messages.getString("Commands.ErrorTitle"), JOptionPane.ERROR_MESSAGE);  //$NON-NLS-1$ 
