@@ -11,11 +11,11 @@ import model.ProjectDefinition;
 import view.MainFrame;
 
 /**
-* This is a file browser application which provides two views to the user:
+* This is a file browser application which provides two main views to the user:
 * 
 * - The default file browser view, which behaves like a standard explorer application,
 *   and also provides some helpers to explore the disk space usage of folders (click on the
-*   'load depp data' button)
+*   'load deep data' button)
 *   
 * - The projects viewer (select via Menu View -> Projects), which searches for specific
 *   folders for master, mixes etc. and lists a deep search of projects for the selected folder.
@@ -26,10 +26,12 @@ import view.MainFrame;
 * - The properties like the names of masters, mixes etc. folders, as well as the file extension
 *   tokens are loaded from a XML file, for more details no this see class ProjectDefinition.
 *   
+* - The project leftovers view shows all folders which have NOT been qualified as projects, and
+*   are not part of a project folder themselves. 
+*   
 * Initial layout inspired by a file browser 
 * by Andrew Thompson, see http://codereview.stackexchange.com/q/4446/7784
-* 
-* 
+*  
 * 
 * TODO:
 * 
