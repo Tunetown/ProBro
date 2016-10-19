@@ -1,0 +1,81 @@
+<project name="ProBro" default="run" basedir=".">
+	<!-- 
+	<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="libext/appbundler-1.0.jar"/>
+	-->
+	<property environment="env"/>
+
+	<property name="current.dir" value="." />
+	<property name="release.dir" value="release" />
+	<property name="build.dir" value="build" />
+	<property name="lib.dir"     value="libext"/>
+	<property name="src.dir"     value="src"/>
+
+	<path id="classpath">
+	    <fileset dir="${lib.dir}" includes="*.jar"/>
+	</path>
+	
+	<target name="clean" >
+		<delete dir="${build.dir}"/>
+		<delete dir="${release.dir}"/>
+
+		<mkdir dir="${release.dir}"/>
+		<mkdir dir="${build.dir}/classes"/>
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="${build.dir}/classes"/>
+		<javac srcdir="${src.dir}" destdir="${build.dir}/classes" classpathref="classpath" includeantruntime="false"/>
+    </target>
+	
+	<target name="jar" depends="compile">
+		<mkdir dir="${build.dir}/jar"/>
+		
+		<copy todir="${build.dir}/classes">
+		    <fileset dir="${src.dir}">
+		       <include name="**/*.properties"/>
+		    </fileset>
+		</copy>
+
+		<copy todir="${build.dir}/classes">
+		    <fileset dir="${lib.dir}">
+		       <include name="**/*.jar"/>
+		    </fileset>
+		</copy>
+
+		<jar destfile="${build.dir}/jar/ProBro.jar" basedir="${build.dir}/classes">
+			<manifest>
+				<attribute name="Main-Class" value="main.Main"/>
+				<attribute name="Class-Path" value="classpath"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="run" depends="jar">
+		<java jar="${build.dir}/jar/ProBro.jar" fork="true"/>
+	</target>
+
+	<!--
+	<target name="bundle" depends="jar">
+		<bundleapp outputdirectory="${release.dir}"
+			        name="ProBro"
+			        displayname="ProBro"
+			        identifier="components.ButtonDemo"
+			        
+			        
+			        
+			        mainclassname="main.Main">
+
+			<runtime dir="${env.JAVA_HOME}" />
+	
+			<classpath file="libext/guava-15.0-rc1.jar" />
+	
+			<option value="-Xdock:icon=resources/Uriy1966-Steel-System-Library-Mac.icns"/>
+			<option value="-Dapple.laf.useScreenMenuBar=true"/>
+			<option value="-Dcom.apple.macos.use-file-dialog-packages=true"/>
+			<option value="-Dcom.apple.macos.useScreenMenuBar=true"/>
+			<option value="-Dapple.awt.application.name=ProBro"/>
+			<option value="-Dcom.apple.smallTabs=true"/>
+		</bundleapp>
+	</target>
+	-->
+</project>
