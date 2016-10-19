@@ -4,7 +4,7 @@ File Browser application with some features for project management.
 
 This application basically is a file browser, featuring a file system tree and a table, as well as a details panel for file browsing. It allows to load deep info of the selected folder, which enables the user to have all folder sizes correct, which is very useful when cleaning up your hard disk.
 
-For project administration of projects of any kind, there are sme extra features:
+For project administration of projects of any kind, there are some extra features:
 
 In the projects view (See View Menu) and the user selects "select project info", the program scans the current folder recursively and tries to find a specific pattern of folders/files inside the subfolders which are defined as project structures in the ProBro XML configuration file.
 
