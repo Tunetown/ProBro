@@ -451,7 +451,7 @@ public class DirEntry extends File {
 	/**
 	 * Returns the type of the file. This normally is the extension, or DIR if it is a folder.
 	 * 
-	 * @return
+	 * @return 
 	 */
 	public String getType() throws Throwable {
 		if (isDirectory()) return TYPE_DIR; 
