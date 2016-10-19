@@ -1,1 +1,6 @@
+ProBro/bin/
+
+.classpath
+.project
+ProBro/.settings/
 .DS_Store
