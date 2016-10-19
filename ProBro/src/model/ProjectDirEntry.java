@@ -74,6 +74,16 @@ public class ProjectDirEntry extends DirEntry {
 	 */
 	private int isProjectBuffer = -1;
 	
+	/**
+	 * Buffer for getExtension
+	 */
+	private String extension = null;
+	
+	/**
+	 * Earliest matching file/folder (buffer)
+	 */
+	private ProjectDirEntry earliestMatching;
+	
 	public ProjectDirEntry(String name) throws Throwable {
 		super(name);
 	}
@@ -231,13 +241,13 @@ public class ProjectDirEntry extends DirEntry {
 	}
 
 	/**
-	 * Does this folder contain a project?
+	 * Does this folder contain a project? (Currently unused, but left here, it could perhaps
+	 * be needed in the future)
 	 * 
 	 * @return
 	 * @throws Throwable 
 	 */
 	public boolean containsProject() throws Throwable {
-		// TODO buffer
 		if (!this.projectPropertiesLoaded()) return false;
 		
 		if (isProject()) return true;
@@ -266,7 +276,6 @@ public class ProjectDirEntry extends DirEntry {
 	 * @return
 	 */
 	private boolean isProject(boolean noLoad) throws Throwable {
-		// TODO buffer
 		if (!isDirectory()) return false;
 		if (!noLoad) loadProjectProperties();
 
@@ -287,7 +296,6 @@ public class ProjectDirEntry extends DirEntry {
 	 * @throws IOException
 	 */
 	private String determineProjectYear() throws Throwable {
-		// TODO buffer
 		// Search for 19XX
 		Pattern p = Pattern.compile("19[\\d][\\d]");
 		Matcher m = p.matcher(getName());
@@ -319,15 +327,16 @@ public class ProjectDirEntry extends DirEntry {
 	 * @throws IOException
 	 */
 	public ProjectDirEntry getEarliestMatchingFile() throws Throwable {
-		// TODO buffer
-		ProjectDirEntry earliest = null;
-		for (ProjectProperty p : properties) {
-			for (ProjectDirEntry d : p.getMatchingFiles()) {
-				if (earliest == null) earliest = d;
-				if (earliest.getCreationDate().compareTo(d.getCreationDate()) < 0) earliest = d;
+		if (earliestMatching == null) {
+			for (ProjectProperty p : properties) {
+				for (ProjectDirEntry d : p.getMatchingFiles()) {
+					if (earliestMatching == null || earliestMatching.getCreationDate().compareTo(d.getCreationDate()) < 0) {
+						earliestMatching = d;
+					}
+				}
 			}
 		}
-		return earliest;
+		return earliestMatching;
 	}
 
 	/**
@@ -337,7 +346,6 @@ public class ProjectDirEntry extends DirEntry {
 	 * @return
 	 */
 	private Date determineProjectLastModified() throws Throwable {
-		// TODO buffer
 		Date ft = getLastModificationDate();
 		
 		if (isDirectory()) {
@@ -405,8 +413,9 @@ public class ProjectDirEntry extends DirEntry {
 	 * @return
 	 */
 	public String getExtension() throws Throwable {
-		// TODO buffer
-		return com.google.common.io.Files.getFileExtension(getAbsolutePath());
+		if (extension != null) return extension;
+		extension = com.google.common.io.Files.getFileExtension(getAbsolutePath());
+		return extension;
 	}
 
 	/**
@@ -471,7 +480,6 @@ public class ProjectDirEntry extends DirEntry {
 	 * @throws Throwable 
 	 */
 	public List<ProjectDirEntry> getMatchingFiles(List<ProjectPropertyExtension> extensions) throws Throwable {
-		// TODO buffer
 		List<ProjectDirEntry> ret = new ArrayList<ProjectDirEntry>();
 		for(ProjectPropertyExtension e : extensions) {
 			ret.addAll(getMatchingFiles(e, this));
