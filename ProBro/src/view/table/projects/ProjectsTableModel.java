@@ -5,11 +5,8 @@ import main.Messages;
 import main.Utils;
 import model.DirEntry;
 import model.ProjectDirEntry;
-
-import java.text.SimpleDateFormat;
-
+import java.util.Date;
 import javax.swing.Icon;
-
 import view.table.Table;
 import view.table.TableModel;
 import view.table.filebrowser.ReadableSize;
@@ -83,7 +80,7 @@ public class ProjectsTableModel extends TableModel {
 			case 4:
 				return new ReadableSize(file);
 			case 5:
-				return (new SimpleDateFormat("dd.mm.yyyy")).format(file.getProjectLastModified());
+				return file.getProjectLastModified().getTime();
 			}
 			
 			// Dynamic columns
@@ -121,7 +118,7 @@ public class ProjectsTableModel extends TableModel {
 		case 4:
 			return ReadableSize.class;
 		case 5:
-			return String.class;
+			return Date.class;
 		}
 		
 		// Dynamic columns

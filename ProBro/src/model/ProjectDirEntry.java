@@ -65,9 +65,14 @@ public class ProjectDirEntry extends DirEntry {
 	private List<ProjectDirEntry> projectLeftoversList = null;
 	
 	/**
-	 * Buffer
+	 * Buffer for isContainedInProject
 	 */
 	private boolean isContainedInProject;
+	
+	/**
+	 * Buffer for isProject
+	 */
+	private int isProjectBuffer = -1;
 	
 	public ProjectDirEntry(String name) throws Throwable {
 		super(name);
@@ -220,8 +225,9 @@ public class ProjectDirEntry extends DirEntry {
 	 * @return
 	 */
 	public boolean isProject() throws Throwable {
-		// TODO buffer
-		return isProject(false);
+		if (isProjectBuffer > -1) return (isProjectBuffer == 0) ?  false : true;
+		isProjectBuffer = isProject(false) ? 1 : 0;
+		return (isProjectBuffer == 0) ?  false : true;
 	}
 
 	/**

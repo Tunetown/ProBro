@@ -81,6 +81,11 @@ public class DirEntry extends File {
 	 */
 	private String readableSize = null;
 	
+	/**
+	 * Depth buffer
+	 */
+	private int depth = -1;
+	
 	public DirEntry(String name) throws Throwable {
 		super(name);
 		if (!exists()) throw new FileNotFoundException(getAbsolutePath());
@@ -275,8 +280,9 @@ public class DirEntry extends File {
 	 * @return
 	 */
 	public int getDepth() throws Throwable {
-		// TODO buffer
-		return getDepth(0);
+		if (depth > -1) return depth;
+		depth = getDepth(0); 
+		return depth;
 	}
 	
 	/**
