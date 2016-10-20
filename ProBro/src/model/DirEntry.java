@@ -1,12 +1,16 @@
 package model;
 
 import main.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import com.google.common.escape.Escaper;
 import com.google.common.escape.Escapers;
 
@@ -85,7 +89,6 @@ public class DirEntry extends File {
 	
 	public DirEntry(String name) throws Throwable {
 		super(name);
-		if (!exists()) throw new FileNotFoundException(getAbsolutePath());
 		
 		// Get escaper for shell file names
 		final Escapers.Builder builder = Escapers.builder();
@@ -469,9 +472,8 @@ public class DirEntry extends File {
 	 */
 	public Date getCreationDate() throws Throwable {
 		// TODO buffer
-		//BasicFileAttributes attrs = Files.readAttributes(this.toPath(), BasicFileAttributes.class);
-		//return new Date(attrs.creationTime().toMillis());
-		return new Date();
+		BasicFileAttributes attrs = Files.readAttributes(this.toPath(), BasicFileAttributes.class);
+		return new Date(attrs.creationTime().toMillis());
 	}
 	
 	/**
@@ -482,8 +484,7 @@ public class DirEntry extends File {
 	 */
 	public Date getLastModificationDate() throws Throwable {
 		// TODO buffer
-		//BasicFileAttributes attrs = Files.readAttributes(this.toPath(), BasicFileAttributes.class);
-		//return new Date(attrs.lastModifiedTime().toMillis());
-		return new Date();
+		BasicFileAttributes attrs = Files.readAttributes(this.toPath(), BasicFileAttributes.class);
+		return new Date(attrs.lastModifiedTime().toMillis());
 	}
 }

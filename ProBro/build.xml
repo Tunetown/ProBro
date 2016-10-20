@@ -2,7 +2,6 @@
 	<!-- 
 	<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="libext/appbundler-1.0.jar"/>
 	-->
-	<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
 	
 	<property environment="env"/>
 	<property name="current.dir" value="." />
@@ -27,7 +26,7 @@
 	<!-- Compile to build dir --> 
 	<target name="compile" depends="clean">
 		<mkdir dir="${build.dir}/classes"/>
-		<javac srcdir="${src.dir}" destdir="${build.dir}/classes" target="1.6" source="1.6" classpathref="classpath" includeantruntime="false"/>
+		<javac srcdir="${src.dir}" destdir="${build.dir}/classes" classpathref="classpath" includeantruntime="false"/>
     </target>
 	
 	<!-- Create JAR package --> 
@@ -40,7 +39,11 @@
 		    </fileset>
 		</copy>
 
-		<zipfileset dir="${lib.dir}" includes="**/*.jar" />
+		<copy todir="${build.dir}/classes">
+		    <fileset dir="${lib.dir}/guava">
+		       <include name="**/*.*"/>
+		    </fileset>
+		</copy>
 		
 		<jar destfile="${build.dir}/jar/ProBro.jar" basedir="${build.dir}/classes">
 			<manifest>

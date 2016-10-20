@@ -27,8 +27,8 @@ public class WorkerPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	// Custom colors
-	private Color killedColor = new Color(255, 160, 0);      // Background color for killed workers
-	private Color finishedColor = new Color(100, 255, 100);  // Background color for finished workers
+	private Color killedColor = new Color(255, 200, 200);      // Background color for killed workers
+	private Color finishedColor = new Color(200, 255, 200);  // Background color for finished workers
 	private Color borderColor = Color.LIGHT_GRAY;            // Border color
 	
 	/**
