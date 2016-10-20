@@ -1,7 +1,5 @@
 <project name="ProBro" default="run" basedir=".">
-	<!-- 
 	<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="libext/appbundler-1.0.jar"/>
-	-->
 	
 	<property environment="env"/>
 	<property name="current.dir" value="." />
@@ -40,7 +38,7 @@
 		</copy>
 
 		<copy todir="${build.dir}/classes">
-		    <fileset dir="${lib.dir}/guava">
+		    <fileset dir="${lib.dir}/guava_escaper">
 		       <include name="**/*.*"/>
 		    </fileset>
 		</copy>
@@ -58,7 +56,6 @@
 		<java jar="${build.dir}/jar/ProBro.jar" fork="true"/>
 	</target>
 
-	<!--
 	<target name="bundle" depends="jar">
 		<bundleapp outputdirectory="${release.dir}"
 			        name="ProBro"
@@ -71,7 +68,9 @@
 
 			<runtime dir="${env.JAVA_HOME}" />
 	
-			<classpath file="libext/guava-15.0-rc1.jar" />
+			<classpath file="/Users/tweber/git/ProBro/ProBro/build/jar/ProBro.jar"/>
+			
+				
 	
 			<option value="-Xdock:icon=resources/Uriy1966-Steel-System-Library-Mac.icns"/>
 			<option value="-Dapple.laf.useScreenMenuBar=true"/>
@@ -81,5 +80,4 @@
 			<option value="-Dcom.apple.smallTabs=true"/>
 		</bundleapp>
 	</target>
-	-->
 </project>
