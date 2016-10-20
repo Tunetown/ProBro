@@ -2,6 +2,8 @@
 	<!-- 
 	<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="libext/appbundler-1.0.jar"/>
 	-->
+	 <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+	
 	<property environment="env"/>
 
 	<property name="current.dir" value="." />
