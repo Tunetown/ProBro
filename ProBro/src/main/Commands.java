@@ -1,10 +1,8 @@
 package main;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 
+import java.awt.event.ActionEvent;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-
 import view.MainPanel;
 import view.table.projects.LoadProjectsWorker;
 import view.workers.LoadFullyWorker;

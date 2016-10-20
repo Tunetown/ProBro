@@ -2,20 +2,20 @@
 	<!-- 
 	<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="libext/appbundler-1.0.jar"/>
 	-->
-	 <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+	<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
 	
 	<property environment="env"/>
-
 	<property name="current.dir" value="." />
 	<property name="release.dir" value="release" />
 	<property name="build.dir" value="build" />
 	<property name="lib.dir"     value="libext"/>
 	<property name="src.dir"     value="src"/>
-
+	
 	<path id="classpath">
 	    <fileset dir="${lib.dir}" includes="*.jar"/>
 	</path>
 	
+	<!-- Clean before building --> 
 	<target name="clean" >
 		<delete dir="${build.dir}"/>
 		<delete dir="${release.dir}"/>
@@ -24,11 +24,13 @@
 		<mkdir dir="${build.dir}/classes"/>
 	</target>
 
+	<!-- Compile to build dir --> 
 	<target name="compile" depends="clean">
 		<mkdir dir="${build.dir}/classes"/>
-		<javac srcdir="${src.dir}" destdir="${build.dir}/classes" classpathref="classpath" includeantruntime="false"/>
+		<javac srcdir="${src.dir}" destdir="${build.dir}/classes" target="1.6" source="1.6" classpathref="classpath" includeantruntime="false"/>
     </target>
 	
+	<!-- Create JAR package --> 
 	<target name="jar" depends="compile">
 		<mkdir dir="${build.dir}/jar"/>
 		
@@ -52,6 +54,7 @@
 		</jar>
 	</target>
 	
+	<!-- Run application from JAR package --> 
 	<target name="run" depends="jar">
 		<java jar="${build.dir}/jar/ProBro.jar" fork="true"/>
 	</target>

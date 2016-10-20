@@ -1,15 +1,12 @@
 package model;
 
 import main.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import com.google.common.escape.Escaper;
 import com.google.common.escape.Escapers;
 
