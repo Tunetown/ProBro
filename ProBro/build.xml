@@ -40,16 +40,12 @@
 		    </fileset>
 		</copy>
 
-		<copy todir="${build.dir}/classes">
-		    <fileset dir="${lib.dir}">
-		       <include name="**/*.jar"/>
-		    </fileset>
-		</copy>
-
+		<zipfileset dir="${lib.dir}" includes="**/*.jar" />
+		
 		<jar destfile="${build.dir}/jar/ProBro.jar" basedir="${build.dir}/classes">
 			<manifest>
 				<attribute name="Main-Class" value="main.Main"/>
-				<attribute name="Class-Path" value="classpath"/>
+				<attribute name="Class-Path" value="${build.dir}/jar"/>
 			</manifest>
 		</jar>
 	</target>
