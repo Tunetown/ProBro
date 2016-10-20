@@ -68,7 +68,7 @@
 
 			<runtime dir="${env.JAVA_HOME}" />
 	
-			<classpath file="/Users/tweber/git/ProBro/ProBro/build/jar/ProBro.jar"/>
+			<classpath file="${build.dir}/jar/ProBro.jar"/>
 			
 				
 	
