@@ -39,7 +39,7 @@
 		</copy>
 
 		<copy todir="${build.dir}/classes">
-		    <fileset dir="${lib.dir}/guava_escaper">
+		    <fileset dir="${lib.dir}/guava_escaper"> 
 		       <include name="**/*.*"/>
 		    </fileset>
 		</copy>
