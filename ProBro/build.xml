@@ -28,7 +28,7 @@
 		<javac srcdir="${src.dir}" destdir="${build.dir}/classes" target="1.6" source="1.6" classpathref="classpath" includeantruntime="false" classpath="."/>
     </target> 
 	
-	<!-- Create JAR package --> 
+	<!-- Create JAR package -->  
 	<target name="jar" depends="compile">
 		<mkdir dir="${build.dir}/jar"/> 
 		
