@@ -16,7 +16,7 @@ import view.MainFrame;
 * - The default file browser view, which behaves like a standard explorer application,
 *   and also provides some helpers to explore the disk space usage of folders (click on the
 *   'load deep data' button)
-*   
+*    
 * - The projects viewer (select via Menu View -> Projects), which searches for specific
 *   folders for master, mixes etc. and lists a deep search of projects for the selected folder.
 *   In the tree, select the folder to search through, and click on "Search projects". The table
