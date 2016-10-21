@@ -1,5 +1,6 @@
 <project name="ProBro" default="run" basedir=".">
 	<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="libext/appbundler-1.0.jar"/>
+	<taskdef name="jarbundler" classname="net.sourceforge.jarbundler.JarBundler" classpath="libext/jarbundler-2.3.1.jar"/>
 	
 	<property environment="env"/>
 	<property name="current.dir" value="." />
@@ -24,7 +25,7 @@
 	<!-- Compile to build dir --> 
 	<target name="compile" depends="clean">
 		<mkdir dir="${build.dir}/classes"/>
-		<javac srcdir="${src.dir}" destdir="${build.dir}/classes" classpathref="classpath" includeantruntime="false"/>
+		<javac srcdir="${src.dir}" destdir="${build.dir}/classes" target="1.6" source="1.6" classpathref="classpath" includeantruntime="false" classpath="."/>
     </target>
 	
 	<!-- Create JAR package --> 
@@ -57,6 +58,23 @@
 	</target>
 
 	<target name="bundle" depends="jar">
+		<jarbundler dir="release"
+		            name="ProBro"
+					verbose="true"
+					jvmversion="1.6+"
+		            mainclass="main.Main" >
+
+			<jarfileset dir="${build.dir}/jar">
+				<include name="**/*.jar" />
+			</jarfileset>
+		</jarbundler>
+		
+		<delete file="${release.dir}/Probro.app/Contents/MacOS/JavaApplicationStub"/>
+			<exec executable="ln">
+				<arg line="-s /System/Library/Frameworks/JavaVM.framework/Resources/MacOS/JavaApplicationStub"/>
+				<arg value="${release.dir}/Probro.app/Contents/MacOS/JavaApplicationStub"/>
+		</exec>
+		<!--
 		<bundleapp outputdirectory="${release.dir}"
 			        name="ProBro"
 			        displayname="ProBro"
@@ -79,5 +97,6 @@
 			<option value="-Dapple.awt.application.name=ProBro"/>
 			<option value="-Dcom.apple.smallTabs=true"/>
 		</bundleapp>
+		-->
 	</target>
 </project>

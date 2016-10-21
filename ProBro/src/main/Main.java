@@ -46,7 +46,7 @@ public class Main {
 	/**
 	 * XML file to load the projects definitions from
 	 */
-	private static final File projectDefinitionFile = new File("ProBroProjectDef.xml");
+	private static final File projectDefinitionFile = new File("Contents/Resources/ProBroProjectDef.xml");
 	
 	/**
 	 * Project definitions (loaded from XML file in projectDefinitionFile)
