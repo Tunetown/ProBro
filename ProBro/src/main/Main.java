@@ -61,7 +61,7 @@ public class Main {
 	/**
 	 * Main application method (just wraps the INIT method and runs it in the EDT)
 	 * 
-	 * @param args
+	 * @param args 
 	 */
 	public static void main(String[] args) {
 			
