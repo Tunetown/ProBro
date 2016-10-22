@@ -96,13 +96,11 @@
 		</bundleapp>
 
 		<!-- Copy default project definition file to Resources folder inside the app bundle -->
-		<!--
 		<copy todir="${release.app.dir}/${appfilename}.app/Contents/Resources/">
 		    <fileset dir="${resources.dir}">
 		       <include name="ProBroDefaultProjectDef.xml"/>
 		    </fileset>
 		</copy>
-		-->
 	</target>
 	
 	<target name="run-jar" depends="jar">
