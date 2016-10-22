@@ -26,8 +26,6 @@
 <string>1</string>
 <key>NSHumanReadableCopyright</key>
 <string>2016 Tom Weber, www.TuneTown.de</string>
-<key>JVMRuntime</key>
-<string>jdk1.8.0_05.jdk</string>
 <key>JVMMainClassName</key>
 <string>main.Main</string>
 <key>JVMOptions</key>

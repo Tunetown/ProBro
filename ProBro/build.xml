@@ -75,7 +75,10 @@
 					mainclassname="main.Main">
 	
 			<classpath file="${release.jar.dir}/${appfilename}.jar"/>
+			
+			<!-- Uncomment this to include the JRE. WARNING: Large File size will result!
 			<runtime dir="/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home" />
+			-->
 	
 			<option value="-Xdock:icon=resources/Uriy1966-Steel-System-Library-Mac.icns"/>
 			<option value="-Dapple.laf.useScreenMenuBar=true"/>
