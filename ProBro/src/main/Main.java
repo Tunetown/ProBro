@@ -46,7 +46,7 @@ public class Main {
 	/**
 	 * XML file to load the projects definitions from
 	 */
-	private static final File projectDefinitionFile = new File("Contents/Resources/ProBroProjectDef.xml");
+	private static final String projectDefinitionFile = "ProBroDefaultProjectDef.xml";
 	
 	/**
 	 * Project definitions (loaded from XML file in projectDefinitionFile)
@@ -72,16 +72,10 @@ public class Main {
 			// Set native look and feel 
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		
-			// Load projects definitions
-			try {
-				projectDefinition = new ProjectDefinition(projectDefinitionFile);
-				
-			} catch (FileNotFoundException e) {
-				// IF the project definition file is not there, we do not want to quit the program!
-				JOptionPane.showMessageDialog(null, Messages.getString("Msg_WarnProjectDefinitionMissing", projectDefinitionFile.getAbsolutePath()), "Warning", JOptionPane.WARNING_MESSAGE); 
-			}
-			
-			// Run application
+			// Load project definition from XML file
+			loadProjectDefinition();
+
+			// Run application by initializing the main JFrame
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
@@ -97,6 +91,31 @@ public class Main {
 			
 		} catch (Throwable e) {
 			Main.handleThrowable(e);
+		}
+	}
+	
+	/**
+	 * Load project definition (first from app resource bundle (OSX), then from default directory. If not found,
+	 * a warning is displayed, but the file browser view still remains fully fuctional.
+	 * @throws Throwable 
+	 * 
+	 */
+	private static void loadProjectDefinition() throws Throwable {
+		// Load projects definitions. This is done first inside the app dir (OS X). If not found, the current dir is searched for the file. 
+		File propFile = new File( com.apple.eio.FileManager.getPathToApplicationBundle() + "/Contents/Resources/" + projectDefinitionFile);
+		try {
+			projectDefinition = new ProjectDefinition(propFile);
+			
+		} catch (FileNotFoundException e) {
+			// Try current folder
+			propFile = new File(projectDefinitionFile);
+			try {
+				projectDefinition = new ProjectDefinition(propFile);
+
+			} catch (FileNotFoundException e1) {
+				// IF the project definition file is not there, we do not want to quit the program!
+				JOptionPane.showMessageDialog(null, Messages.getString("Msg_WarnProjectDefinitionMissing", propFile.getAbsolutePath()), "Warning", JOptionPane.WARNING_MESSAGE);
+			}
 		}
 	}
 	

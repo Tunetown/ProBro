@@ -7,6 +7,8 @@
 	<property name="src.dir"             value="src"/>
 	<property name="lib.dir"             value="libext"/>
 	<property name="build.dir"           value="build" />
+	<property name="resources.dir"       value="resources" />
+	<property name="resources.icons.dir" value="${resources.dir}/icons" />
 	<property name="build.resources.dir" value="${build.dir}/resources" />
 	<property name="release.dir"         value="release" />
 	<property name="release.jar.dir"     value="${release.dir}/jar" />
@@ -16,7 +18,7 @@
 	
 	<!-- Classpath for compilation -->
 	<path id="classpath">
-	    <fileset dir="${lib.dir}" includes="*.jar"/>
+	    <fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</path>
 	
 	<!-- Cleanup before building --> 
@@ -48,6 +50,11 @@
 		       <include name="**/*.*"/>
 		    </fileset>
 		</copy>
+		<copy todir="${build.resources.dir}">
+		    <fileset dir="${lib.dir}/aje">  
+		       <include name="**/*.*"/>
+		    </fileset>
+		</copy>
 	</target> 
 	
 	<!-- Create JAR package -->  
@@ -57,7 +64,7 @@
 		<jar destfile="${release.jar.dir}/${appfilename}.jar" basedir="${build.resources.dir}">
 			<manifest>
 				<attribute name="Main-Class" value="main.Main"/>
-				<attribute name="Class-Path" value="${release.jar.dir}"/>
+				<!-- <attribute name="Class-Path" value="${release.jar.dir}"/> -->
 			</manifest>
 		</jar>
 	</target>
@@ -69,7 +76,7 @@
 					name="${appfilename}"
 					displayname="ProBro"
 					identifier="de.tunetown.probro"
-					icon="resources/Graphicloads-100-Flat-Zoom-search-2.icns"
+					icon="${resources.icons.dir}/Graphicloads-100-Flat-Zoom-search-2.icns"
 					copyright="2016 Tom Weber, www.TuneTown.de"
 					shortversion="0.1"
 					mainclassname="main.Main">
@@ -87,6 +94,15 @@
 			<option value="-Dapple.awt.application.name=ProBro"/>
 			<option value="-Dcom.apple.smallTabs=true"/>
 		</bundleapp>
+
+		<!-- Copy default project definition file to Resources folder inside the app bundle -->
+		<!--
+		<copy todir="${release.app.dir}/${appfilename}.app/Contents/Resources/">
+		    <fileset dir="${resources.dir}">
+		       <include name="ProBroDefaultProjectDef.xml"/>
+		    </fileset>
+		</copy>
+		-->
 	</target>
 	
 	<target name="run-jar" depends="jar">
@@ -94,8 +110,7 @@
 	</target>
 
 	<target name="run-app" depends="bundle">
-		<exec executable="open">
-			<arg value="${release.app.dir}/${appfilename}.app"/>
-		</exec>
+		<!-- This is called like that to also get the console output of the program in ant -->
+		<exec executable="${release.app.dir}/${appfilename}.app/Contents/MacOS/JavaAppLauncher" />
 	</target>
 </project>

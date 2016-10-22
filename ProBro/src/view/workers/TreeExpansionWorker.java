@@ -48,7 +48,12 @@ public class TreeExpansionWorker extends CustomSwingWorker<Void, DirEntry> {
 	 * 
 	 */
 	private void createNode() throws Throwable {
-		DirEntry file = (DirEntry)node.getUserObject();
+		DirEntry file = null;
+		try {
+			file = (DirEntry)node.getUserObject();
+		} catch(Throwable t) {
+			return;
+		}
 
 		if (file.isDirectory()) {
 			List<DirEntry> files = file.getChildren();
