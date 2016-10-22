@@ -1,94 +1,81 @@
-<project name="ProBro" default="run" basedir=".">
+<project name="ProBro" default="run-app" basedir=".">
 	<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="libext/appbundler-1.0.jar"/>
-	<taskdef name="jarbundler" classname="net.sourceforge.jarbundler.JarBundler" classpath="libext/jarbundler-2.3.1.jar"/>
 	
 	<property environment="env"/>
-	<property name="current.dir" value="." />
-	<property name="release.dir" value="release" />
-	<property name="build.dir" value="build" />
-	<property name="lib.dir"     value="libext"/>
-	<property name="src.dir"     value="src"/>
 	
+	<property name="current.dir"         value="." />
+	<property name="src.dir"             value="src"/>
+	<property name="lib.dir"             value="libext"/>
+	<property name="build.dir"           value="build" />
+	<property name="build.resources.dir" value="${build.dir}/resources" />
+	<property name="release.dir"         value="release" />
+	<property name="release.jar.dir"     value="${release.dir}/jar" />
+	<property name="release.app.dir"     value="${release.dir}/app" />
+	
+	<property name="appfilename"         value="ProBro" />
+	
+	<!-- Classpath for compilation -->
 	<path id="classpath">
 	    <fileset dir="${lib.dir}" includes="*.jar"/>
 	</path>
 	
-	<!-- Clean before building --> 
+	<!-- Cleanup before building --> 
 	<target name="clean" >
 		<delete dir="${build.dir}"/>
 		<delete dir="${release.dir}"/>
-
-		<mkdir dir="${release.dir}"/>
-		<mkdir dir="${build.dir}/classes"/>
 	</target>
 
 	<!-- Compile to build dir --> 
 	<target name="compile" depends="clean">
-		<mkdir dir="${build.dir}/classes"/>
-		<javac srcdir="${src.dir}" destdir="${build.dir}/classes" target="1.6" source="1.6" classpathref="classpath" includeantruntime="false" classpath="."/>
-    </target> 
-	
-	<!-- Create JAR package -->  
-	<target name="jar" depends="compile">
-		<mkdir dir="${build.dir}/jar"/> 
+		<mkdir dir="${build.resources.dir}"/>
 		
-		<copy todir="${build.dir}/classes">
+		<javac  srcdir="${src.dir}" 
+				destdir="${build.resources.dir}" 
+				classpathref="classpath" 
+				includeantruntime="false" 
+		/>
+
+		<!-- Copy messages to resources dir, to include them in the jar -->
+		<copy todir="${build.resources.dir}">
 		    <fileset dir="${src.dir}">
 		       <include name="**/*.properties"/>
 		    </fileset>
 		</copy>
 
-		<copy todir="${build.dir}/classes">
+		<!-- Copy external libraries to resources dir, to include them in the jar -->
+		<copy todir="${build.resources.dir}">
 		    <fileset dir="${lib.dir}/guava_escaper">  
 		       <include name="**/*.*"/>
 		    </fileset>
 		</copy>
+	</target> 
+	
+	<!-- Create JAR package -->  
+	<target name="jar" depends="compile">
+		<mkdir dir="${release.jar.dir}"/> 
 		
-		<jar destfile="${build.dir}/jar/ProBro.jar" basedir="${build.dir}/classes">
+		<jar destfile="${release.jar.dir}/${appfilename}.jar" basedir="${build.resources.dir}">
 			<manifest>
 				<attribute name="Main-Class" value="main.Main"/>
-				<attribute name="Class-Path" value="${build.dir}/jar"/>
+				<attribute name="Class-Path" value="${release.jar.dir}"/>
 			</manifest>
 		</jar>
 	</target>
 	
-	<!-- Run application from JAR package --> 
-	<target name="run" depends="jar">
-		<java jar="${build.dir}/jar/ProBro.jar" fork="true"/>
-	</target>
-
 	<target name="bundle" depends="jar">
-		<jarbundler dir="release"
-		            name="ProBro"
-					verbose="true"
-					jvmversion="1.6+"
-		            mainclass="main.Main" >
-
-			<jarfileset dir="${build.dir}/jar">
-				<include name="**/*.jar" />
-			</jarfileset>
-		</jarbundler>
+		<mkdir dir="${release.app.dir}"/>
 		
-		<delete file="${release.dir}/Probro.app/Contents/MacOS/JavaApplicationStub"/>
-			<exec executable="ln">
-				<arg line="-s /System/Library/Frameworks/JavaVM.framework/Resources/MacOS/JavaApplicationStub"/>
-				<arg value="${release.dir}/Probro.app/Contents/MacOS/JavaApplicationStub"/>
-		</exec>
-		<!--
-		<bundleapp outputdirectory="${release.dir}"
-			        name="ProBro"
-			        displayname="ProBro"
-			        identifier="components.ButtonDemo"
-			        
-			        
-			        
-			        mainclassname="main.Main">
-
-			<runtime dir="${env.JAVA_HOME}" />
+		<bundleapp outputdirectory="${release.app.dir}"
+					name="${appfilename}"
+					displayname="ProBro"
+					identifier="de.tunetown.probro"
+					icon="resources/Graphicloads-100-Flat-Zoom-search-2.icns"
+					copyright="2016 Tom Weber, www.TuneTown.de"
+					shortversion="0.1"
+					mainclassname="main.Main">
 	
-			<classpath file="${build.dir}/jar/ProBro.jar"/>
-			
-				
+			<classpath file="${release.jar.dir}/${appfilename}.jar"/>
+			<runtime dir="/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home" />
 	
 			<option value="-Xdock:icon=resources/Uriy1966-Steel-System-Library-Mac.icns"/>
 			<option value="-Dapple.laf.useScreenMenuBar=true"/>
@@ -97,6 +84,15 @@
 			<option value="-Dapple.awt.application.name=ProBro"/>
 			<option value="-Dcom.apple.smallTabs=true"/>
 		</bundleapp>
-		-->
+	</target>
+	
+	<target name="run-jar" depends="jar">
+		<java jar="${release.jar.dir}/${appfilename}.jar" fork="true"/>
+	</target>
+
+	<target name="run-app" depends="bundle">
+		<exec executable="open">
+			<arg value="${release.app.dir}/${appfilename}.app"/>
+		</exec>
 	</target>
 </project>

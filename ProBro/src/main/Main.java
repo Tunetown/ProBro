@@ -69,9 +69,6 @@ public class Main {
 			// Use the native menu bar on mac os x
 			System.setProperty("apple.laf.useScreenMenuBar", "true"); //$NON-NLS-1$
 			
-			// Set the name of the application menu item
-			//System.setProperty("com.apple.mrj.application.apple.menu.about.name", APP_TITLE);  TODO not working 
-
 			// Set native look and feel 
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		
