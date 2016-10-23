@@ -1,8 +1,10 @@
 package main;
 
 import java.awt.event.ActionEvent;
+
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+
 import view.MainPanel;
 import view.table.projects.LoadProjectsWorker;
 import view.workers.LoadFullyWorker;
@@ -144,5 +146,13 @@ public class Commands {
 	 */
 	public void showProjectLeftovers() throws Throwable {
 		gui.frame.setView(2);
+	}
+
+	/**
+	 * TODO
+	 * @throws Throwable 
+	 */
+	public void openDefinition() throws Throwable {
+		gui.frame.openProjectDefinition();
 	}
 }

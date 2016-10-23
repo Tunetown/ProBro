@@ -49,6 +49,9 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	private JRadioButtonMenuItem showProjects;
 	private JRadioButtonMenuItem showProjectLeftovers;
 	
+	// Project menu 
+	private JMenuItem openDefinition;
+	
 	public Menu(MainFrame frame) {
 		this.frame = frame;
 	}
@@ -121,6 +124,15 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 		refresh.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 		view.add(refresh);
 
+		// View menu
+		JMenu projects = new JMenu(Messages.getString("Menu.Projects"));  //$NON-NLS-1$
+		add(projects);
+		
+		openDefinition = new JRadioButtonMenuItem(Messages.getString("Menu.OpenDefinition")); //$NON-NLS-1$
+		openDefinition.addActionListener(this);
+		openDefinition.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+		projects.add(openDefinition);
+		
 		frame.setJMenuBar(this);
 	}
 
@@ -162,7 +174,10 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 			if (source == showProjectLeftovers) {
 				com.showProjectLeftovers();
 			}
-			
+			if (source == openDefinition) {
+				com.openDefinition();
+			}
+
 		} catch (Throwable e1) {
 			Main.handleThrowable(e1);
 		}

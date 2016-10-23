@@ -4,7 +4,10 @@ import java.awt.Frame;
 import java.awt.Point;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import main.Main;
 import main.ParamFile;
@@ -194,6 +197,19 @@ public class MainFrame extends JFrame {
 				System.out.println("Setting last used window size: " + winWidth + "x" + winHeight);
 				setSize(winWidth, winHeight);
 			}
+		}
+	}
+
+	/**
+	 * TODO
+	 * 
+	 */
+	public void openProjectDefinition() throws Throwable {
+		JFileChooser j = new JFileChooser();
+		j.setFileFilter(new FileNameExtensionFilter("Project Definition (.xml)", "xml")); // TODO externalize 
+		int answer = j.showOpenDialog(this);
+		if (answer == JFileChooser.APPROVE_OPTION) {
+			System.out.println (j.getSelectedFile().getAbsolutePath());
 		}
 	}
 }
