@@ -59,6 +59,11 @@ public class Main {
 	public static final boolean HIDE_FILES = true;       
 
 	/**
+	 * Buffer for app bundle path (OS X)
+	 */
+	private static String appBundlePath = null;
+	
+	/**
 	 * Main application method (just wraps the INIT method and runs it in the EDT)
 	 * 
 	 * @param args 
@@ -73,7 +78,7 @@ public class Main {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		
 			// Load project definition from XML file
-			loadProjectDefinition();
+			loadDefaultProjectDefinition();
 
 			// Run application by initializing the main JFrame
 			SwingUtilities.invokeLater(new Runnable() {
@@ -100,25 +105,57 @@ public class Main {
 	 * @throws Throwable 
 	 * 
 	 */
-	private static void loadProjectDefinition() throws Throwable {
+	public static void loadDefaultProjectDefinition() throws Throwable {
 		// Load projects definitions. This is done first inside the app dir (OS X). If not found, the current dir is searched for the file. 
-		File propFile = new File( com.apple.eio.FileManager.getPathToApplicationBundle() + "/Contents/Resources/" + projectDefinitionFile);
+		File propFile = getDefaultProjectDefinitionFile();
+		
 		try {
-			projectDefinition = new ProjectDefinition(propFile);
+			setProjectDefinition(propFile);
 			
 		} catch (FileNotFoundException e) {
 			// Try current folder
 			propFile = new File(projectDefinitionFile);
 			try {
-				projectDefinition = new ProjectDefinition(propFile);
+				setProjectDefinition(propFile);
 
 			} catch (FileNotFoundException e1) {
-				// IF the project definition file is not there, we do not want to quit the program!
-				JOptionPane.showMessageDialog(null, Messages.getString("Msg_WarnProjectDefinitionMissing", propFile.getAbsolutePath()), "Warning", JOptionPane.WARNING_MESSAGE);
+				// Last try: This is for development in eclipse only! Remove when deploying.
+				propFile = new File("resources/" + projectDefinitionFile);
+				try {
+					setProjectDefinition(propFile);
+
+				} catch (FileNotFoundException e2) {
+					// No project definition loaded
+				}
 			}
 		}
 	}
+
+	/**
+	 * Returns the default project definition file
+	 * 
+	 * @return
+	 * @throws Throwable
+	 */
+	public static File getDefaultProjectDefinitionFile() throws Throwable {
+		if (appBundlePath == null) {
+			appBundlePath = com.apple.eio.FileManager.getPathToApplicationBundle();
+		}
+		return new File( appBundlePath + "/Contents/Resources/" + projectDefinitionFile);
+	}
 	
+	
+	/**
+	 * Sets a new project definition from a given file
+	 * 
+	 * @param file
+	 * @throws Throwable 
+	 */
+	public static void setProjectDefinition(File file) throws Throwable {
+		System.out.println(Messages.getString("Msg_SetProjectDefinition", file.getAbsolutePath()));  
+		projectDefinition = new ProjectDefinition(file);
+	}
+
 	/**
 	 * Returns the project definition loaded from the XML file
 	 * 
@@ -145,5 +182,4 @@ public class Main {
 		// Leave the program
 		System.exit(8);
 	}
-
 }

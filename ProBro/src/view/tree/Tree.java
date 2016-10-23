@@ -188,7 +188,7 @@ public class Tree {
 			n = (DirEntry) node.getUserObject();
 			gui.details.setFileDetails(n);
 		} catch (Throwable t) {
-			// TODO selecting root does not work right now. 
+			// TODO Selecting root does not work right now. (PRIO very low) 
 		}
 	}
 	

@@ -349,8 +349,8 @@ public class DirEntry extends File {
 	/**
 	 * Zip the file using the shell
 	 * 
-	 * TODO: Currently, the whole path is stored in the ZIP file from /Volumes up. 
-	 * 		 Examine this...
+	 * TODO Currently, the whole path is stored in the ZIP file from /Volumes up. 
+	 * 		Examine this...
 	 * 
 	 * @throws IOException 
 	 * 
@@ -398,7 +398,7 @@ public class DirEntry extends File {
 			Main.handleThrowable(e);
 		}
 			
-		// TODO: PRIO LOW Evaluate the return (not so important now)
+		// TODO Evaluate the return (not so important now)
 		return true;
 	}
 	
@@ -470,7 +470,6 @@ public class DirEntry extends File {
 	 * @throws IOException
 	 */
 	public Date getCreationDate() throws Throwable {
-		// TODO buffer
 		BasicFileAttributes attrs = Files.readAttributes(this.toPath(), BasicFileAttributes.class);
 		return new Date(attrs.creationTime().toMillis());
 	}
@@ -482,7 +481,6 @@ public class DirEntry extends File {
 	 * @throws IOException
 	 */
 	public Date getLastModificationDate() throws Throwable {
-		// TODO buffer
 		BasicFileAttributes attrs = Files.readAttributes(this.toPath(), BasicFileAttributes.class);
 		return new Date(attrs.lastModifiedTime().toMillis());
 	}

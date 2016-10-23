@@ -3,10 +3,12 @@ package view.table.projects;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+
 import main.Main;
 import model.ProjectProperty;
 import model.ProjectDirEntry;
@@ -35,7 +37,6 @@ public class ProjectPropertyCellRenderer extends DefaultTableCellRenderer {
 		try {
 			ProjectPropertyValue cl = (ProjectPropertyValue)cell;
 			ProjectProperty c = cl.getProjectProperty();
-			//ProjectDirEntry folder = c.getTarget();
 	
 			// Get output string
 			String out = cl.getOutput();
@@ -57,7 +58,7 @@ public class ProjectPropertyCellRenderer extends DefaultTableCellRenderer {
 			
 			return l;
 		} catch (Throwable t) {
-			Main.handleThrowable(t);
+			Main.handleThrowable(t); 
 			return null;
 		}		
 	}

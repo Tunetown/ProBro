@@ -196,7 +196,7 @@ public class ProjectDirEntry extends DirEntry {
 	 * Look for project properties in the current folder
 	 */
 	private void loadProjectProperties() throws Throwable {
-		if (this.projectPropertiesLoaded()) return;
+		if (projectPropertiesLoaded()) return;
 
 		// Set up and execute the file counters
 		properties = new ArrayList<ProjectProperty>();
@@ -239,8 +239,7 @@ public class ProjectDirEntry extends DirEntry {
 	}
 
 	/**
-	 * Does this folder contain a project? (Currently unused, but left here, it could perhaps
-	 * be needed in the future)
+	 * Does this folder contain a project? 
 	 * 
 	 * @return
 	 * @throws Throwable 

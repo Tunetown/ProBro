@@ -1,15 +1,12 @@
 package view;
 
 import java.awt.BorderLayout;
-
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.border.EmptyBorder;
-
 import view.details.DetailsPanel;
 import view.tree.Tree;
 import view.workers.WorkersPanel;
-import model.DirEntry;
 
 /**
  * Main GUI panel (contains everything)
@@ -76,12 +73,12 @@ public class MainPanel extends JPanel {
 	 * 
 	 */
 	public void refresh() throws Throwable {
-		DirEntry current = details.getCurrentFile();
+		String current = details.getCurrentFile().getAbsolutePath();
 		
 		tree.initTree();
 		tree.reload(); 
 		
-		tree.expandToPath(current.getAbsolutePath());
+		tree.expandToPath(current);
 		
 		repaint();
 	}

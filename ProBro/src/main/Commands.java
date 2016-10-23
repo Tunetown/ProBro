@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
+import view.MainFrame;
 import view.MainPanel;
 import view.table.projects.LoadProjectsWorker;
 import view.workers.LoadFullyWorker;
@@ -19,7 +20,7 @@ import view.workers.ZipWorker;
 public class Commands {
 	
 	/**
-	 * Renerence to main JPanel
+	 * Reference to main JPanel
 	 */
 	private MainPanel gui;
 	
@@ -128,8 +129,8 @@ public class Commands {
 	 * Show file manager
 	 * 
 	 */
-	public void showNormal() throws Throwable {
-		gui.frame.setView(0);
+	public void showFilebrowser() throws Throwable {
+		gui.frame.setView(MainFrame.VIEW_FILEBROWSER);
 	}
 
 	/**
@@ -137,7 +138,7 @@ public class Commands {
 	 * 
 	 */
 	public void showProjects() throws Throwable {
-		gui.frame.setView(1);
+		gui.frame.setView(MainFrame.VIEW_PROJECTS);
 	}
 
 	/**
@@ -145,14 +146,24 @@ public class Commands {
 	 * 
 	 */
 	public void showProjectLeftovers() throws Throwable {
-		gui.frame.setView(2);
+		gui.frame.setView(MainFrame.VIEW_PROJECTLEFTOVERS);
 	}
 
 	/**
-	 * TODO
+	 * Open a project definition file
+	 * 
 	 * @throws Throwable 
 	 */
 	public void openDefinition() throws Throwable {
 		gui.frame.openProjectDefinition();
+	}
+
+	/**
+	 * Open the default project definition file
+	 * 
+	 * @throws Throwable 
+	 */
+	public void openDefaultDefinition() throws Throwable {
+		gui.frame.setProjectDefinition(Main.getDefaultProjectDefinitionFile(), MainFrame.VIEW_PROJECTS);
 	}
 }

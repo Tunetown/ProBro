@@ -4,12 +4,15 @@ import java.awt.Frame;
 import java.awt.Point;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.io.File;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import main.Main;
+import main.Messages;
 import main.ParamFile;
 
 /**
@@ -21,6 +24,10 @@ import main.ParamFile;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
+	public static final int VIEW_FILEBROWSER = 0;
+	public static final int VIEW_PROJECTS = 1;
+	public static final int VIEW_PROJECTLEFTOVERS = 2;
+	
 	/**
 	 * Main panel reference
 	 */
@@ -62,7 +69,7 @@ public class MainFrame extends JFrame {
 		createMenuBar();
 
 		// Set default (file explorer) view
-		setView(2); // TODO
+		setView(VIEW_FILEBROWSER); 
 
 		// Do some size and location stuff
 		pack();
@@ -201,15 +208,44 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * TODO
+	 * Open a new project definition
 	 * 
 	 */
 	public void openProjectDefinition() throws Throwable {
 		JFileChooser j = new JFileChooser();
-		j.setFileFilter(new FileNameExtensionFilter("Project Definition (.xml)", "xml")); // TODO externalize 
+		j.setFileFilter(new FileNameExtensionFilter(Messages.getString("ProjectDefinitionFileType"), "xml"));  
+		
 		int answer = j.showOpenDialog(this);
+		
 		if (answer == JFileChooser.APPROVE_OPTION) {
-			System.out.println (j.getSelectedFile().getAbsolutePath());
+			File file = j.getSelectedFile();
+			setProjectDefinition(file, MainFrame.VIEW_PROJECTS);
 		}
+	}
+	
+	/**
+	 * Set a given project definition and switch to a given view
+	 * 
+	 * @param file
+	 * @throws Throwable 
+	 */
+	public void setProjectDefinition(File file, int view) throws Throwable {
+		if (this.mainPanel.workers.getWorkers().size() > 0) {
+			String msg = Messages.getString("Msg_CloseWorkersBeforeOPD");
+			JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		try {
+			Main.setProjectDefinition(file);
+			
+			this.setView(view);
+			mainPanel.refresh();
+			menuBar.setProjectsOptionsState();
+			
+		} catch (Throwable t) {
+			t.printStackTrace();
+			JOptionPane.showMessageDialog(this, Messages.getString("Msg_ErrorOpeningPD", t.getMessage()), "Error", JOptionPane.ERROR_MESSAGE); 
+		}		
 	}
 }

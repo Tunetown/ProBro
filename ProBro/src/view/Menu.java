@@ -45,12 +45,14 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	
 	// View menu
 	private JMenuItem refresh;
-	private JRadioButtonMenuItem showNormal;
+	private JRadioButtonMenuItem showFilebrowser;
 	private JRadioButtonMenuItem showProjects;
 	private JRadioButtonMenuItem showProjectLeftovers;
 	
 	// Project menu 
 	private JMenuItem openDefinition;
+	private JMenuItem openDefaultDefinition;
+	public JRadioButtonMenuItem openedDefinition;
 	
 	public Menu(MainFrame frame) {
 		this.frame = frame;
@@ -102,10 +104,10 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 		JMenu view = new JMenu(Messages.getString("Menu.View"));  //$NON-NLS-1$
 		add(view);
 		
-		showNormal = new JRadioButtonMenuItem(Messages.getString("Menu.FileManager")); //$NON-NLS-1$
-		showNormal.addActionListener(this);
-		showNormal.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-		view.add(showNormal);
+		showFilebrowser = new JRadioButtonMenuItem(Messages.getString("Menu.FileManager")); //$NON-NLS-1$
+		showFilebrowser.addActionListener(this);
+		showFilebrowser.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+		view.add(showFilebrowser);
 
 		showProjects = new JRadioButtonMenuItem(Messages.getString("Menu.ProjectsManager"));   //$NON-NLS-1$
 		showProjects.addActionListener(this);
@@ -116,7 +118,7 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 		showProjectLeftovers.addActionListener(this);
 		showProjectLeftovers.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 		view.add(showProjectLeftovers);
-
+		
 		view.add(new JSeparator());
 		
 		refresh = new JMenuItem(Messages.getString("Menu.Refresh"));  //$NON-NLS-1$
@@ -128,12 +130,44 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 		JMenu projects = new JMenu(Messages.getString("Menu.Projects"));  //$NON-NLS-1$
 		add(projects);
 		
-		openDefinition = new JRadioButtonMenuItem(Messages.getString("Menu.OpenDefinition")); //$NON-NLS-1$
+		openDefinition = new JMenuItem(Messages.getString("Menu.OpenDefinition")); //$NON-NLS-1$
 		openDefinition.addActionListener(this);
 		openDefinition.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 		projects.add(openDefinition);
 		
+		openDefaultDefinition = new JMenuItem(Messages.getString("Menu.OpenDefaultDefinition")); //$NON-NLS-1$
+		openDefaultDefinition.addActionListener(this);
+		projects.add(openDefaultDefinition);
+
+		projects.add(new JSeparator());
+		
+		openedDefinition = new JRadioButtonMenuItem(""); //$NON-NLS-1$
+		openedDefinition.addActionListener(this);
+		openedDefinition.setEnabled(false);
+		projects.add(openedDefinition);
+		
+		setProjectsOptionsState();
+		
 		frame.setJMenuBar(this);
+	}
+
+	/**
+	 * Set the state of the projects menu items, determined by the current state of the project definition
+	 * @throws Throwable 
+	 * 
+	 */
+	public void setProjectsOptionsState() throws Throwable {
+		if (Main.getProjectDefinition() == null) {
+			showProjects.setEnabled(false);
+			showProjectLeftovers.setEnabled(false);
+			openedDefinition.setSelected(false);
+			openedDefinition.setText(Messages.getString("NoPDloaded"));
+		} else {
+			showProjects.setEnabled(true);
+			showProjectLeftovers.setEnabled(true);
+			openedDefinition.setSelected(true);
+			openedDefinition.setText(Main.getProjectDefinition().getFile().getName());
+		}
 	}
 
 	/**
@@ -165,8 +199,8 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 			if (source == refresh) {
 				frame.mainPanel.refresh();
 			}
-			if (source == showNormal) {
-				com.showNormal();
+			if (source == showFilebrowser) {
+				com.showFilebrowser();
 			}
 			if (source == showProjects) {
 				com.showProjects();
@@ -176,6 +210,9 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 			}
 			if (source == openDefinition) {
 				com.openDefinition();
+			}
+			if (source == openDefaultDefinition) {
+				com.openDefaultDefinition();
 			}
 
 		} catch (Throwable e1) {
@@ -191,17 +228,17 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	public void setView(int view) throws Throwable {
 		switch(view) {
 		case 0: 
-			showNormal.setSelected(true); 
+			showFilebrowser.setSelected(true); 
 			showProjects.setSelected(false);
 			showProjectLeftovers.setSelected(false);
 			break;
 		case 1: 
-			showNormal.setSelected(false); 
+			showFilebrowser.setSelected(false); 
 			showProjects.setSelected(true);
 			showProjectLeftovers.setSelected(false);
 			break; 
 		case 2: 
-			showNormal.setSelected(false); 
+			showFilebrowser.setSelected(false); 
 			showProjects.setSelected(false);
 			showProjectLeftovers.setSelected(true);
 			break; 

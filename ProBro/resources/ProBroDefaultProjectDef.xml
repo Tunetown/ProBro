@@ -64,6 +64,7 @@
 	</projectproperty>
 	<ignore>
 		<extension>logic</extension>
+		<extension>bak</extension>
 		<extension>wb3</extension>
 	</ignore>
 </projectdefinition>

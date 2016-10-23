@@ -242,4 +242,13 @@ public class ProjectDefinition {
 		int b = Integer.parseInt(split[2]);
 		return new Color(r,g,b);
 	}
+	
+	/**
+	 * Returns the loaded definition file
+	 * 
+	 * @return
+	 */
+	public File getFile() {
+		return this.definitionFile;
+	}
 }
