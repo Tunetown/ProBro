@@ -4,14 +4,24 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
-public class StatsFrame extends JDialog {
+import model.ProjectDirEntry;
+
+/**
+ * Dialog showing project list overview statistics in a simple table
+ * 
+ * @author tweber
+ *
+ */
+public class StatsDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	private JTable table;
 	private StatsTableModel tableModel;
+	private ProjectDirEntry file;
 	
-	public StatsFrame(JFrame frame) {
+	public StatsDialog(JFrame frame, ProjectDirEntry file) {
 		super(frame, true);
+		this.file = file;
 	}
 	
 	/**
@@ -30,7 +40,7 @@ public class StatsFrame extends JDialog {
 	 */
 	private void init() throws Throwable {
 		table = new JTable();
-		tableModel = new StatsTableModel();
+		tableModel = new StatsTableModel(file);
 		table.setModel(tableModel);
 		add(table);
 		

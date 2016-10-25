@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+
+import model.ProjectDirEntry;
 import view.MainPanel;
 import view.details.DetailsPanel;
-import view.stats.StatsFrame;
+import view.stats.StatsDialog;
 import view.table.projects.LoadProjectsWorker;
 import view.workers.LoadFullyWorker;
 import view.workers.ZipWorker;
@@ -182,7 +184,7 @@ public class Commands {
 	 * @throws Throwable
 	 */
 	public void showStats() throws Throwable {
-		StatsFrame s = new StatsFrame(gui.frame);
+		StatsDialog s = new StatsDialog(gui.frame, (ProjectDirEntry)gui.frame.mainPanel.details.getCurrentFile());
 		s.showStats();
 	}
 }
