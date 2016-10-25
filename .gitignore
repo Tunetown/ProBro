@@ -1,4 +1,5 @@
 ProBro/bin/
 ProBro/build/
 ProBro/.settings/
+ProBro/release/macosx/bundles/ProBro.app/
 .DS_Store
