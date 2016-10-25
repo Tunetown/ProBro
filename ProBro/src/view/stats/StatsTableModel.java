@@ -36,7 +36,7 @@ public class StatsTableModel extends AbstractTableModel {
 	}
 	
 	/**
-	 * TODO
+	 * Create overview data
 	 * 
 	 * @param file
 	 * @return
@@ -45,9 +45,9 @@ public class StatsTableModel extends AbstractTableModel {
 	private List<StatsLine> createData(ProjectDirEntry file) throws Throwable {
 		List<StatsLine> ret = new ArrayList<StatsLine>();
 		
-		// Overall count of projects and project leftovers TODO externalize
-		ret.add(new StatsLine("Projects", ""+file.getProjectList().size()));
-		ret.add(new StatsLine("Project Leftovers", ""+file.getProjectLeftoversList().size()));
+		// Overall count of projects and project leftovers 
+		ret.add(new StatsLine(Messages.getString("Stats_ProjectCount"), Integer.toString(file.getProjectList().size())));
+		ret.add(new StatsLine(Messages.getString("Stats_ProjectLeftoversCount"), Integer.toString(file.getProjectLeftoversList().size())));
 		
 		for (int i=0; i<Main.getProjectDefinition().getPropertyDefinitions().size(); i++) {
 			ProjectPropertyDefinition p = Main.getProjectDefinition().getPropertyDefinitions().get(i);
@@ -58,9 +58,10 @@ public class StatsTableModel extends AbstractTableModel {
 	}
 
 	/**
-	 * TODO
+	 * Sum up a given property number def of a given project file
 	 * 
-	 * @param p
+	 * @param file
+	 * @param def
 	 * @return
 	 * @throws Throwable
 	 */
