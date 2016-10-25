@@ -1,20 +1,24 @@
-<project name="ProBro" default="run-app" basedir=".">
-	<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="libext/appbundler-1.0.jar"/>
-	
+<project name="ProBro" default="run-app" basedir="." xmlns:fx="javafx:com.sun.javafx.tools.ant">
 	<property environment="env"/>
 	
+	<!-- 
+	<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="libext/appbundler-1.0.jar"/> 
+	-->
+	<taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath=".:./resources:/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/lib/ant-javafx.jar"/> 
+		
 	<property name="current.dir"         value="." />
 	<property name="src.dir"             value="src"/>
 	<property name="lib.dir"             value="libext"/>
 	<property name="build.dir"           value="build" />
+	<property name="build.jar.dir"       value="${build.dir}/jar" />
+	<property name="build.resources.dir" value="${build.dir}/resources" />
 	<property name="resources.dir"       value="resources" />
 	<property name="resources.icons.dir" value="${resources.dir}/icons" />
-	<property name="build.resources.dir" value="${build.dir}/resources" />
 	<property name="release.dir"         value="release" />
-	<property name="release.jar.dir"     value="${release.dir}/jar" />
-	<property name="release.app.dir"     value="${release.dir}/app" />
+	<property name="release.app.dir"     value="${release.dir}/macosx" />
 	
-	<property name="appfilename"         value="ProBro" />
+	<property name="appname"             value="ProBro" />
+	<property name="mainclass"           value="main.Main" />
 	
 	<!-- Classpath for compilation -->
 	<path id="classpath">
@@ -31,10 +35,10 @@
 	<target name="compile" depends="clean">
 		<mkdir dir="${build.resources.dir}"/>
 		
-		<javac  srcdir="${src.dir}" 
-				destdir="${build.resources.dir}" 
-				classpathref="classpath" 
-				includeantruntime="false" 
+		<javac srcdir="${src.dir}" 
+			   destdir="${build.resources.dir}" 
+			   classpathref="classpath" 
+			   includeantruntime="false" 
 		/>
 
 		<!-- Copy messages to resources dir, to include them in the jar -->
@@ -59,12 +63,11 @@
 	
 	<!-- Create JAR package -->  
 	<target name="jar" depends="compile">
-		<mkdir dir="${release.jar.dir}"/> 
+		<mkdir dir="${build.jar.dir}"/> 
 		
-		<jar destfile="${release.jar.dir}/${appfilename}.jar" basedir="${build.resources.dir}">
+		<jar destfile="${build.jar.dir}/${appname}.jar" basedir="${build.resources.dir}">
 			<manifest>
-				<attribute name="Main-Class" value="main.Main"/>
-				<!-- <attribute name="Class-Path" value="${release.jar.dir}"/> -->
+				<attribute name="Main-Class" value="${mainclass}"/>
 			</manifest>
 		</jar>
 	</target>
@@ -72,6 +75,22 @@
 	<target name="bundle" depends="jar">
 		<mkdir dir="${release.app.dir}"/>
 		
+		<fx:deploy nativeBundles="all" verbose="true" outdir="${release.app.dir}" outfile="${appname}">
+			<fx:info copyright="2016 - Thomas Weber - www.TuneTown.de" title="${appname}"/>
+			
+			<fx:application version="0.1" id="${appname}" toolkit="swing" name="${appname}" mainClass="${mainclass}"/>
+			
+			<fx:platform j2se="1.8+" basedir=""> <!-- Here, the empty basedir takes care to NOT include the 160MB JRE in the app bundle. Remove to include the JRE before final deployment. -->
+				<fx:jvmarg value="-Xdock:name=${appname}"/>
+			</fx:platform>
+	         
+			<fx:resources>
+				<fx:fileset dir="${build.jar.dir}" includes="*.jar"/>
+				<fx:fileset dir="${resources.dir}" includes="ProBroDefaultProjectDef.xml"/>
+			</fx:resources>
+		</fx:deploy>
+			
+		<!--
 		<bundleapp outputdirectory="${release.app.dir}"
 					name="${appfilename}"
 					displayname="ProBro"
@@ -83,9 +102,9 @@
 	
 			<classpath file="${release.jar.dir}/${appfilename}.jar"/>
 			
-			<!-- Uncomment this to include the JRE. WARNING: Large File size will result!
+			<!- Uncomment this to include the JRE. WARNING: Large File size will result!
 			<runtime dir="/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home" />
-			-->
+			->
 	
 			<option value="-Xdock:icon=resources/Uriy1966-Steel-System-Library-Mac.icns"/>
 			<option value="-Dapple.laf.useScreenMenuBar=true"/>
@@ -94,21 +113,22 @@
 			<option value="-Dapple.awt.application.name=ProBro"/>
 			<option value="-Dcom.apple.smallTabs=true"/>
 		</bundleapp>
-
-		<!-- Copy default project definition file to Resources folder inside the app bundle -->
+		
+		<!- Copy default project definition file to Resources folder inside the app bundle ->
 		<copy todir="${release.app.dir}/${appfilename}.app/Contents/Resources/">
 		    <fileset dir="${resources.dir}">
 		       <include name="ProBroDefaultProjectDef.xml"/>
 		    </fileset>
 		</copy>
+		-->
 	</target>
 	
 	<target name="run-jar" depends="jar">
-		<java jar="${release.jar.dir}/${appfilename}.jar" fork="true"/>
+		<java jar="${release.jar.dir}/${appname}.jar" fork="true"/>
 	</target>
 
 	<target name="run-app" depends="bundle">
 		<!-- This is called like that to also get the console output of the program in ant -->
-		<exec executable="${release.app.dir}/${appfilename}.app/Contents/MacOS/JavaAppLauncher" />
+		<exec executable="${release.app.dir}/bundles/${appname}.app/Contents/MacOS/${appname}" />
 	</target>
 </project>

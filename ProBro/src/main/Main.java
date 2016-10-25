@@ -141,7 +141,7 @@ public class Main {
 		if (appBundlePath == null) {
 			appBundlePath = com.apple.eio.FileManager.getPathToApplicationBundle();
 		}
-		return new File( appBundlePath + "/Contents/Resources/" + projectDefinitionFile);
+		return new File( appBundlePath + "/Contents/Java/" + projectDefinitionFile);
 	}
 	
 	
