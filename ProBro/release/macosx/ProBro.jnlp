@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="ProBro.jnlp">
+  <information>
+    <title>ProBro</title>
+    <vendor>Unknown vendor</vendor>
+    <description>Sample JavaFX 2.0 application.</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <jfx:javafx-runtime version="2.2+" href="http://javadl.sun.com/webapps/download/GetFile/javafx-latest/windows-i586/javafx2.jnlp"/>
+  </resources>
+  <resources>
+    <j2se version="1.8+" java-vm-args="-Xdock:name=ProBro "  href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="ProBro.jar" size="2224694" download="eager" />
+  </resources>
+  <application-desc main-class="main.Main"  name="ProBro" >
+  </application-desc>
+  <update check="background"/>
+</jnlp>
