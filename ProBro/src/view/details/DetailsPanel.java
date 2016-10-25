@@ -40,20 +40,9 @@ import view.workers.LoadFullyWorker;
 public class DetailsPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Identifier for getView()
-	 */
-	public static final String FILE_VIEW = "files"; //$NON-NLS-1$
-	
-	/**
-	 * Identifier for getView()
-	 */
-	public static final String PROJECTS_VIEW = "projects"; //$NON-NLS-1$
-	
-	/**
-	 * Identifier for getView()
-	 */
-	public static final String PROJECTLEFTOVERS_VIEW = "projectleftovers"; //$NON-NLS-1$
+	public static final int VIEW_FILEBROWSER = 0;
+	public static final int VIEW_PROJECTS = 1;
+	public static final int VIEW_PROJECTLEFTOVERS = 2;
 
 	/**
 	 * Main panel reference
@@ -78,7 +67,7 @@ public class DetailsPanel extends JPanel {
 	/**
 	 * This is the currently selected view
 	 */
-	private String selectedView = FILE_VIEW;
+	private int selectedView = VIEW_FILEBROWSER;
 
 	// File details
 	private JLabel fileName;                     
@@ -275,7 +264,7 @@ public class DetailsPanel extends JPanel {
 	public void setView(int view) throws Throwable {
 		if (view == 0) {
 			initTable(new FileBrowserTableModel());
-			selectedView = FILE_VIEW;
+			selectedView = VIEW_FILEBROWSER;
 			
 			loadFully.setVisible(true);
 			loadProjects.setVisible(false);
@@ -284,7 +273,7 @@ public class DetailsPanel extends JPanel {
 		} 
 		if (view == 1) {
 			initTable(new ProjectsTableModel());			
-			selectedView = PROJECTS_VIEW;
+			selectedView = VIEW_PROJECTS;
 
 			loadFully.setVisible(false);
 			loadProjects.setVisible(true);
@@ -293,7 +282,7 @@ public class DetailsPanel extends JPanel {
 		}
 		if (view == 2) {
 			initTable(new ProjectLeftoversTableModel());			
-			selectedView = PROJECTLEFTOVERS_VIEW;
+			selectedView = VIEW_PROJECTLEFTOVERS;
 
 			loadFully.setVisible(false);
 			loadProjects.setVisible(true);
@@ -308,7 +297,7 @@ public class DetailsPanel extends JPanel {
 	 * 
 	 * @return
 	 */
-	public String getView() {
+	public int getView() {
 		return selectedView;
 	}
 
@@ -342,14 +331,14 @@ public class DetailsPanel extends JPanel {
 		
 		// Set fully loaded button state
 		try {
-			if (getView() == FILE_VIEW) { 
+			if (getView() == VIEW_FILEBROWSER) { 
 				if (currentFile.isFullyLoaded()) {
 					gui.details.loadFully.setEnabled(false);
 				} else {
 					gui.details.loadFully.setEnabled(!(gui.workers.getWorkers(LoadFullyWorker.class).size() > 0));
 				}
 			} 
-			if (getView() == PROJECTS_VIEW || getView() == PROJECTLEFTOVERS_VIEW){
+			if (getView() == VIEW_PROJECTS || getView() == VIEW_PROJECTLEFTOVERS){
 				if (((ProjectDirEntry)currentFile).projectsLoaded()) {
 					gui.details.loadProjects.setEnabled(false);
 				} else {

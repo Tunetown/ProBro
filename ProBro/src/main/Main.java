@@ -154,6 +154,7 @@ public class Main {
 	public static void setProjectDefinition(File file) throws Throwable {
 		System.out.println(Messages.getString("Msg_SetProjectDefinition", file.getAbsolutePath()));  
 		projectDefinition = new ProjectDefinition(file);
+		System.out.println(Messages.getString("Msg_SetProjectDefinitionSucc", file.getAbsolutePath()));
 	}
 
 	/**

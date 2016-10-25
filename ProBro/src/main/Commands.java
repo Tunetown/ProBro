@@ -4,9 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-
-import view.MainFrame;
 import view.MainPanel;
+import view.details.DetailsPanel;
 import view.table.projects.LoadProjectsWorker;
 import view.workers.LoadFullyWorker;
 import view.workers.ZipWorker;
@@ -130,7 +129,7 @@ public class Commands {
 	 * 
 	 */
 	public void showFilebrowser() throws Throwable {
-		gui.frame.setView(MainFrame.VIEW_FILEBROWSER);
+		gui.frame.setView(DetailsPanel.VIEW_FILEBROWSER);
 	}
 
 	/**
@@ -138,7 +137,7 @@ public class Commands {
 	 * 
 	 */
 	public void showProjects() throws Throwable {
-		gui.frame.setView(MainFrame.VIEW_PROJECTS);
+		gui.frame.setView(DetailsPanel.VIEW_PROJECTS);
 	}
 
 	/**
@@ -146,7 +145,7 @@ public class Commands {
 	 * 
 	 */
 	public void showProjectLeftovers() throws Throwable {
-		gui.frame.setView(MainFrame.VIEW_PROJECTLEFTOVERS);
+		gui.frame.setView(DetailsPanel.VIEW_PROJECTLEFTOVERS);
 	}
 
 	/**
@@ -164,6 +163,6 @@ public class Commands {
 	 * @throws Throwable 
 	 */
 	public void openDefaultDefinition() throws Throwable {
-		gui.frame.setProjectDefinition(Main.getDefaultProjectDefinitionFile(), MainFrame.VIEW_PROJECTS);
+		gui.frame.setProjectDefinition(Main.getDefaultProjectDefinitionFile(), DetailsPanel.VIEW_PROJECTS);
 	}
 }

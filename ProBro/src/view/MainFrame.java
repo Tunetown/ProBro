@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import view.details.DetailsPanel;
 import main.Main;
 import main.Messages;
 import main.ParamFile;
@@ -24,10 +25,6 @@ import main.ParamFile;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	public static final int VIEW_FILEBROWSER = 0;
-	public static final int VIEW_PROJECTS = 1;
-	public static final int VIEW_PROJECTLEFTOVERS = 2;
-	
 	/**
 	 * Main panel reference
 	 */
@@ -69,7 +66,7 @@ public class MainFrame extends JFrame {
 		createMenuBar();
 
 		// Set default (file explorer) view
-		setView(VIEW_FILEBROWSER); 
+		setView(DetailsPanel.VIEW_FILEBROWSER); 
 
 		// Do some size and location stuff
 		pack();
@@ -126,6 +123,8 @@ public class MainFrame extends JFrame {
 			    	var.set("winX", frameWrapper.winX);
 			    	var.set("winY", frameWrapper.winY);
 			    	var.set("fullscreen", frameWrapper.fullscreen);
+			    	var.set("selectedView", frameWrapper.mainPanel.details.getView());
+			    	var.set("projectDefinition", Main.getProjectDefinition().getFile().getAbsolutePath());
 					if (frameWrapper.mainPanel.details.getCurrentFile() != null) 
 						var.set("selDir", frameWrapper.mainPanel.details.getCurrentFile().getAbsolutePath());
 					var.store();
@@ -184,11 +183,20 @@ public class MainFrame extends JFrame {
 		Integer winX = (Integer)(vars.get("winX"));
 		Integer winY = (Integer)(vars.get("winY"));
 		Integer fullscreen = (Integer)(vars.get("fullscreen"));
+		Integer selectedView = (Integer)(vars.get("selectedView"));
+		String projectDefinition = (String)(vars.get("projectDefinition"));
 
 		// Use loaded values
+		System.out.println("Loaded last used values from " + vars.getFile().getAbsolutePath());
+		
 		if (loadedFileName != null) {
 			System.out.println("Opening recent path: " + loadedFileName);
 			mainPanel.tree.expandToPath(loadedFileName);
+		}
+
+		if (projectDefinition != null) {
+			System.out.println("Setting last used project definition: " + projectDefinition);
+			setProjectDefinition(new File(projectDefinition), DetailsPanel.VIEW_FILEBROWSER);
 		}
 		
 		if (fullscreen != null && fullscreen == 1) {
@@ -205,6 +213,15 @@ public class MainFrame extends JFrame {
 				setSize(winWidth, winHeight);
 			}
 		}
+		
+		if (selectedView != null) {
+			// Only set the stored view when there is a project definition. The file browser view has been set already, 
+			// we only need this if any project related view is stored.
+			if (Main.getProjectDefinition() != null && selectedView != DetailsPanel.VIEW_FILEBROWSER) {
+				System.out.println("Setting last used view selection: " + selectedView);
+				mainPanel.details.setView(selectedView);
+			} 
+		}
 	}
 
 	/**
@@ -219,7 +236,7 @@ public class MainFrame extends JFrame {
 		
 		if (answer == JFileChooser.APPROVE_OPTION) {
 			File file = j.getSelectedFile();
-			setProjectDefinition(file, MainFrame.VIEW_PROJECTS);
+			setProjectDefinition(file, DetailsPanel.VIEW_PROJECTS);
 		}
 	}
 	

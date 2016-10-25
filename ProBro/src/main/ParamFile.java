@@ -35,6 +35,15 @@ public class ParamFile implements Serializable {
 	}
 	
 	/**
+	 * Returns the parameter file
+	 * 
+	 * @return
+	 */
+	public File getFile() {
+		return paramFile;
+	}
+	
+	/**
 	 * Returns a parameter from memory
 	 * 
 	 * @param name

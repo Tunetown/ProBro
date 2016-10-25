@@ -110,7 +110,7 @@ public class Table extends JTable {
 	 * @param d
 	 */
 	private void doubleClick(DirEntry d) throws Throwable {
-    	if (gui.details.getView() == DetailsPanel.PROJECTS_VIEW || gui.details.getView() == DetailsPanel.PROJECTLEFTOVERS_VIEW) {
+    	if (gui.details.getView() == DetailsPanel.VIEW_PROJECTS || gui.details.getView() == DetailsPanel.VIEW_PROJECTLEFTOVERS) {
     		// Projects view: open folder in OS
     		d.open();
     	} else {
