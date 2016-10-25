@@ -1,20 +1,17 @@
 package view;
 
 import java.awt.Frame;
-import java.awt.Point;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.io.File;
-
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import view.details.DetailsPanel;
 import main.Main;
 import main.Messages;
-import main.ParamFile;
+import main.ParamLoader;
 
 /**
  * Main application frame
@@ -39,6 +36,11 @@ public class MainFrame extends JFrame {
 	 * Attributes for screen (user parameters)   
 	 */
 	public int winX, winY, winW, winH, fullscreen;                               
+	
+	/**
+	 * Parameter loader
+	 */
+	private ParamLoader paramLoader = null;	
 	
 	public MainFrame(String title) throws Throwable {
 		super(title);
@@ -75,7 +77,8 @@ public class MainFrame extends JFrame {
 		setVisible(true);
 		
 		// Load user parameters from file and use them
-		loadParams();
+		paramLoader = new ParamLoader(this);
+		paramLoader.loadParams();
 		
 		// Store user data before closing. For this, we need a shutdown hook, but also we need to store
 		// some of the frame properties before this, because the frame might not be visible anymore when the hook
@@ -109,32 +112,7 @@ public class MainFrame extends JFrame {
 			public void componentShown(ComponentEvent arg0) {
 			}
 		});
-
-		// Create the shutdown hook
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-		    @Override
-		    public void run() {
-		    	try {
-		    		System.out.print("Shutting down...");
-	
-			    	ParamFile var = new ParamFile(Main.paramFile);
-			    	var.set("winWidth", frameWrapper.winW);
-			    	var.set("winHeight", frameWrapper.winH);
-			    	var.set("winX", frameWrapper.winX);
-			    	var.set("winY", frameWrapper.winY);
-			    	var.set("fullscreen", frameWrapper.fullscreen);
-			    	var.set("selectedView", frameWrapper.mainPanel.details.getView());
-			    	var.set("projectDefinition", Main.getProjectDefinition().getFile().getAbsolutePath());
-					if (frameWrapper.mainPanel.details.getCurrentFile() != null) 
-						var.set("selDir", frameWrapper.mainPanel.details.getCurrentFile().getAbsolutePath());
-					var.store();
-			    	
-			    	System.out.println("finished.");
-		    	} catch (Throwable e) {
-		    		Main.handleThrowable(e);
-		    	}
-		    }
-		});
+		paramLoader.addShutdownHook();
 	}
 	
 	/**
@@ -169,60 +147,6 @@ public class MainFrame extends JFrame {
 		fullscreen = ((getExtendedState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) ? 1 : 0;
 	}
 	
-	/**
-	 * Load Parameters: Load the last opened path etc, stored in a temporary file in the user�s home directory.
-	 * After loading, this also applies the parameters (if existent) to the program.
-	 * 
-	 */
-	public void loadParams() throws Throwable {
-		ParamFile vars = new ParamFile(Main.paramFile);
-	
-		String loadedFileName = (String)(vars.get("selDir"));
-		Integer winWidth = (Integer)(vars.get("winWidth"));
-		Integer winHeight =(Integer)(vars.get("winHeight"));
-		Integer winX = (Integer)(vars.get("winX"));
-		Integer winY = (Integer)(vars.get("winY"));
-		Integer fullscreen = (Integer)(vars.get("fullscreen"));
-		Integer selectedView = (Integer)(vars.get("selectedView"));
-		String projectDefinition = (String)(vars.get("projectDefinition"));
-
-		// Use loaded values
-		System.out.println("Loaded last used values from " + vars.getFile().getAbsolutePath());
-		
-		if (loadedFileName != null) {
-			System.out.println("Opening recent path: " + loadedFileName);
-			mainPanel.tree.expandToPath(loadedFileName);
-		}
-
-		if (projectDefinition != null) {
-			System.out.println("Setting last used project definition: " + projectDefinition);
-			setProjectDefinition(new File(projectDefinition), DetailsPanel.VIEW_FILEBROWSER);
-		}
-		
-		if (fullscreen != null && fullscreen == 1) {
-			setExtendedState(Frame.MAXIMIZED_BOTH);
-		} else {
-			if (winX != null && winY != null) {
-				System.out.println("Setting last used window position: " + winX + "x" + winY);
-				setSize(winWidth, winHeight);
-				setLocation(new Point(winX, winY));
-			}
-			
-			if (winWidth != null && winHeight != null) {
-				System.out.println("Setting last used window size: " + winWidth + "x" + winHeight);
-				setSize(winWidth, winHeight);
-			}
-		}
-		
-		if (selectedView != null) {
-			// Only set the stored view when there is a project definition. The file browser view has been set already, 
-			// we only need this if any project related view is stored.
-			if (Main.getProjectDefinition() != null && selectedView != DetailsPanel.VIEW_FILEBROWSER) {
-				System.out.println("Setting last used view selection: " + selectedView);
-				mainPanel.details.setView(selectedView);
-			} 
-		}
-	}
 
 	/**
 	 * Open a new project definition
