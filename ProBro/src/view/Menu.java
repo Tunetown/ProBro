@@ -44,10 +44,11 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	private JMenuItem quit;
 	
 	// View menu
-	private JMenuItem refresh;
 	private JRadioButtonMenuItem showFilebrowser;
 	private JRadioButtonMenuItem showProjects;
 	private JRadioButtonMenuItem showProjectLeftovers;
+	private JMenuItem refresh;
+	private JMenuItem resetWindows;
 	
 	// Project menu 
 	private JMenuItem openDefinition;
@@ -125,6 +126,12 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 		refresh.addActionListener(this);
 		refresh.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 		view.add(refresh);
+		
+		view.add(new JSeparator());
+
+		resetWindows = new JMenuItem(Messages.getString("Menu.ResetWindows"));  //$NON-NLS-1$
+		resetWindows.addActionListener(this);
+		view.add(resetWindows);
 
 		// View menu
 		JMenu projects = new JMenu(Messages.getString("Menu.Projects"));  //$NON-NLS-1$
@@ -198,6 +205,9 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 			}
 			if (source == refresh) {
 				frame.mainPanel.refresh();
+			}
+			if (source == resetWindows) {
+				com.resetWindows();;
 			}
 			if (source == showFilebrowser) {
 				com.showFilebrowser();

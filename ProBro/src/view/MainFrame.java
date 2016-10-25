@@ -1,13 +1,16 @@
 package view;
 
 import java.awt.Frame;
+import java.awt.Point;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.io.File;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import view.details.DetailsPanel;
 import main.Main;
 import main.Messages;
@@ -188,5 +191,15 @@ public class MainFrame extends JFrame {
 			t.printStackTrace();
 			JOptionPane.showMessageDialog(this, Messages.getString("Msg_ErrorOpeningPD", t.getMessage()), "Error", JOptionPane.ERROR_MESSAGE); 
 		}		
+	}
+
+	/**
+	 * Reset window size and position
+	 * 
+	 * @throws Throwable
+	 */
+	public void reset() throws Throwable {
+		setSize(1000, 600);
+		setLocation(new Point(10, 10));
 	}
 }

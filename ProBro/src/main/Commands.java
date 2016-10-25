@@ -165,4 +165,13 @@ public class Commands {
 	public void openDefaultDefinition() throws Throwable {
 		gui.frame.setProjectDefinition(Main.getDefaultProjectDefinitionFile(), DetailsPanel.VIEW_PROJECTS);
 	}
+
+	/**
+	 * Reset window size and position
+	 * 
+	 * @throws Throwable
+	 */
+	public void resetWindows() throws Throwable {
+		gui.frame.reset();
+	}
 }
