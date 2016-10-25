@@ -54,6 +54,7 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	private JMenuItem openDefinition;
 	private JMenuItem openDefaultDefinition;
 	public JRadioButtonMenuItem openedDefinition;
+	private JMenuItem showStats;
 	
 	public Menu(MainFrame frame) {
 		this.frame = frame;
@@ -152,7 +153,13 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 		openedDefinition.addActionListener(this);
 		openedDefinition.setEnabled(false);
 		projects.add(openedDefinition);
-		
+
+		projects.add(new JSeparator());
+
+		showStats = new JMenuItem(Messages.getString("Menu.showStats")); //$NON-NLS-1$
+		showStats.addActionListener(this);
+		projects.add(showStats);
+
 		setProjectsOptionsState();
 		
 		frame.setJMenuBar(this);
@@ -223,6 +230,9 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 			}
 			if (source == openDefaultDefinition) {
 				com.openDefaultDefinition();
+			}
+			if (source == showStats) {
+				com.showStats();
 			}
 
 		} catch (Throwable e1) {
