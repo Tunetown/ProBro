@@ -4,9 +4,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-
-import view.MainFrame;
 import view.MainPanel;
 import view.details.DetailsPanel;
 import view.stats.StatsFrame;
