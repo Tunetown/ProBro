@@ -32,10 +32,86 @@ For Mac OS X (>= 10.8.5), a genuine DMG installer is available, see the project 
 
 #### Windows, Linux, ...
 For all other platforms, the .jar file can be used (path: ProBro/release/macosx/ProBro.jar. Sorry, no .exe has been created yet... However, the application has been tested on Windows 7 and works flawlessly, except for the ZIP functionality which is only available on Unix-like systems.
+Also, you will need the default project definition file, which should be downloaded from ProBro/release/macosx/ProBroDefaultProjectDef.xml and copied beneath the jar file.
 
 ## Further Details
 
 #### Project Definition (XML)
+Here is an example definition file like the one included in the repository:
+
+```xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<projectdefinition name="Tunetown Projects">
+	<projectproperty header="_MA">
+		<folder qualifying="true">_MA</folder>
+		<file qualifying="true" bgcolor="0;230;230" tabletext="ZIP">_MA.zip</file>
+		
+		<extension recursive="true">wav</extension>
+		<extension recursive="true">aif</extension>
+		<extension recursive="true">aiff</extension>
+		<extension recursive="true">sd2</extension>
+		<extension recursive="true" bgcolor="255;160;0">mp3</extension>
+		<extension recursive="true" bgcolor="255;160;0">wma</extension>
+	</projectproperty>
+	<projectproperty header="_MIX">
+		<folder qualifying="true">_EM</folder>
+		<folder qualifying="true">_MIX</folder>
+		<folder qualifying="true">_MX</folder>
+		<file qualifying="true" bgcolor="0;230;230" tabletext="ZIP">_EM.zip</file>
+		<file qualifying="true" bgcolor="0;230;230" tabletext="ZIP">_MIX.zip</file>
+		<file qualifying="true" bgcolor="0;230;230" tabletext="ZIP">_MX.zip</file>
+		<extension recursive="true">wav</extension>
+		<extension recursive="true">aif</extension>
+		<extension recursive="true">aiff</extension>
+		<extension recursive="true">sd2</extension>
+		<extension recursive="true" bgcolor="255;160;0">mp3</extension>
+		<extension recursive="true" bgcolor="255;160;0">wma</extension>
+	</projectproperty>
+	<projectproperty header="_PMA">
+		<folder qualifying="true">_PMA</folder>
+		<file qualifying="true"  bgcolor="0;230;230" tabletext="ZIP">_PMA.zip</file>  
+		<extension recursive="true">wav</extension>
+		<extension recursive="true">aif</extension>
+		<extension recursive="true">aiff</extension>
+		<extension recursive="true">sd2</extension>
+		<extension recursive="true" bgcolor="255;160;0">mp3</extension>
+		<extension recursive="true" bgcolor="255;160;0">wma</extension>
+	</projectproperty>
+	<projectproperty header="_PMX">
+		<folder qualifying="true">_PMX</folder>
+		<folder qualifying="true">_RUFF</folder>
+		<file qualifying="true" tabletext="ZIP" bgcolor="0;230;230">_PMX.zip</file>
+		<file qualifying="true" tabletext="ZIP" bgcolor="0;230;230">_RUFF.zip</file>
+		<extension recursive="true">wav</extension>
+		<extension recursive="true">aif</extension>
+		<extension recursive="true">aiff</extension>
+		<extension recursive="true">sd2</extension>
+		<extension recursive="true" bgcolor="255;160;0">mp3</extension>
+		<extension recursive="true" bgcolor="255;160;0">wma</extension>
+	</projectproperty>
+	<projectproperty header="Sessions">
+		<extension recursive="true">logic</extension>
+		<extension recursive="true">lso</extension>
+		<extension recursive="true" bgcolor="200;200;200">ptf</extension>
+		<extension recursive="true" bgcolor="200;200;200">pts</extension>
+		<extension recursive="true" bgcolor="200;200;200">ptx</extension>
+	</projectproperty>
+	<projectproperty header="Audiofiles">
+		<extension recursive="true">wav</extension>
+		<extension recursive="true">aif</extension>
+		<extension recursive="true">aiff</extension>
+		<extension recursive="true">sd2</extension>
+		<extension recursive="true" bgcolor="255;160;0">mp3</extension>
+		<extension recursive="true" bgcolor="255;160;0">wma</extension>
+	</projectproperty>
+	<ignore>
+		<extension>logic</extension>
+		<extension>bak</extension>
+		<extension>wb3</extension>
+	</ignore>
+</projectdefinition>
+```
+
 The project definition XML file must have the following structure:
 
 - It has to contain a main tag named "projectdefinition"
