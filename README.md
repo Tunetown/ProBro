@@ -14,7 +14,7 @@ The use case for me (and the reason this application has been developed) was to 
 
 The given default XML configuration is my personal one, however, you can easily define your own project structures also for completely different kinds of projects like programming, webdesign, photography for example.  
 
-# Features
+## Features
 
 - Basic file browsing (file browser view)
 - Loading / visualizing the real size of any files/folders in the system
@@ -23,19 +23,19 @@ The given default XML configuration is my personal one, however, you can easily 
 - Determination of the year of the project, by either extracting this from the project folder name, or by the earliest existing file in one of the project qualifying folders (a.k.a. project targets, see below)
 - Project leftovers view, showing all folders which have NOT been detected (qualified) as projects and which are not part of a project themselves 
 
-# Compatibility and Installation
+## Compatibility and Installation
 
 Minimum required Java Runtime Environment Version: 1.8
 
-## Mac OS X
+#### Mac OS X
 For Mac OS X (>= 10.8.5), a genuine DMG installer is available, see the project folder ProBro/release/macosx/bundles/. It also contains the project definition XML file, which is automatically loaded on program start.
 
-## Windows, Linux, ...
+#### Windows, Linux, ...
 For all other platforms, the .jar file can be used (path: ProBro/release/macosx/ProBro.jar. Sorry, no .exe has been created yet... However, the application has been tested on Windows 7 and works flawlessly, except for the ZIP functionality which is only available on Unix-like systems.
 
-# Further Details
+## Further Details
 
-## Project Definition (XML)
+#### Project Definition (XML)
 The project definition XML file must have the following structure:
 
 - It has to contain a main tag named "projectdefinition"
