@@ -23,19 +23,19 @@ The given default XML configuration is my personal one, however, you can easily 
 - Determination of the year of the project, by either extracting this from the project folder name, or by the earliest existing file in one of the project qualifying folders (a.k.a. project targets, see below)
 - Project leftovers view, showing all folders which have NOT been detected (qualified) as projects and which are not part of a project themselves 
 
-# Bugs / Requested Features
-
-See the GITHUB issue tracking list. If you have any requests or issues, let me know, perhaps i can help.
-
 # Compatibility and Installation
 
-Required: Java JRE 1.8+
+Minimum required Java Runtime Environment Version: 1.8
 
-1. For Mac OS X (>= 10.8.5), a genuine DMG installer is available, see the project folder ProBro/release/macosx/bundles/. It also contains the project definition XML file, which is automatically loaded on program start.
+## Mac OS X
+For Mac OS X (>= 10.8.5), a genuine DMG installer is available, see the project folder ProBro/release/macosx/bundles/. It also contains the project definition XML file, which is automatically loaded on program start.
 
-2. For all other platforms, the .jar file can be used (path: ProBro/release/macosx/ProBro.jar. Sorry, no .exe has been created yet... However, the application has been tested on Windows 7 and works flawlessly, except for the ZIP functionality which is only available on Unix-like systems.
+## Windows, Linux, ...
+For all other platforms, the .jar file can be used (path: ProBro/release/macosx/ProBro.jar. Sorry, no .exe has been created yet... However, the application has been tested on Windows 7 and works flawlessly, except for the ZIP functionality which is only available on Unix-like systems.
 
-# Project Definition (XML)
+# Further Details
+
+## Project Definition (XML)
 The project definition XML file must have the following structure:
 
 - It has to contain a main tag named "projectdefinition"
