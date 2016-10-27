@@ -11,7 +11,7 @@
   </resources>
   <resources>
     <j2se version="1.8+" java-vm-args="-Xdock:name=ProBro "  href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ProBro.jar" size="2229159" download="eager" />
+    <jar href="ProBro.jar" size="2230444" download="eager" />
   </resources>
   <application-desc main-class="main.Main"  name="ProBro" >
   </application-desc>
