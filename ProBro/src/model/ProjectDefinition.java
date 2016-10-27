@@ -16,49 +16,8 @@ import org.w3c.dom.NodeList;
 
 /**
  * Loads and represents the definitions for searching project properties (names of 
- * master, mix etc folders, audio file and session file extensions etc), loaded from XML. 
- * The XML must have the following structure:
- * 
- * - Exactly one tag named "projectdefinition"
- * 		- Attributes:
- * 			- name: Name of the definition (not used currently)
- * - Inside this tag, there can be several "projectproperty" tags. Each of these will be evaluated for
- *   every file or folder inside a potential project folder. Also, each one will have a separate column in
- *   the projects view table, by default showing 0 if the property has been found or "-" if not (see below for details).
- *   	- Attributes:
- *   		- header: Must be set to show the property in the table as a column.
- *   
- *   Inside each of these project properties, the following tags are parsed:
- *   	- "folder": This defines a folder name. If this folder is found directly as child of a folder, the
- *                  property is seen as found, and its target will be set to the found folder.
- *                  - Attributes:
- *                  	- qualifying: If set to true, the existence of the folder qualifies the project folder to 
- *                                    really be recognized as a project.
- *                      - bgColor: Defines the base back color for table cells, if the property has been found. Syntax: "r;g;b"
- *                      - tableText: This text, if set, is shown if the property has been found. If not specified,
- *                                   the column will show the amount of matching files, see "extension" tag.
- *                                   
- *   	- "file": This defines a file name. If this file is found directly as child of a folder, the
- *                property is seen as found, and its target will be set to the found folder.
- *                - Attributes: same as for property "folder"
- *                
- *      - "extension": These extensions define the file (or folder) extensions which will be counted in one of these cases:
- *                     1. If a folder tag exists, all defined extensions will be searched here, and the count is shown in the table (if no tableText is defined)
- *                     2. If a file tag exists, this is  
- *                     3. If no file or folder tags exist, files matching these extensions will be searched and counted directly in the project folder.
- *                     - Attributes:
- *                  		- qualifying: If set to true, the existence of a file of this type qualifies the project folder to 
- *                          	          really be recognized as a project.
- *                      	- bgColor: Defines the back color for table cells, if the extension has been found. The real back color
- *                                     will be between the base color (if set by the hitting folder tag) or the java standard table background color,
- *                                     the exact color being defined by the percentage of files with the extension. Syntax: "r;g;b"
- *                          - recursive: If set to true, files will be searched deeply inside the target (see "extension" tag description above), if not set,
- *                                       only first level files and folders will be scanned.
- * 
- * - Also, there can be a "ignore" tag. Inside this, you can specify "extension" tags, which will be ignored as project folders. This
- *   can be handy because also the leftovers list ignores these...and for example, Logic creates folders as sessions, so these
- *   would show up in the leftovers view.
- *   
+ * master, mix etc folders, audio file and session file extensions etc), loaded from XML.
+ *  
  * @author xwebert
  *
  */
