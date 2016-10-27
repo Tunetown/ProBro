@@ -2,15 +2,11 @@ package view.stats;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import main.Main;
 import main.Messages;
 import model.ProjectDirEntry;
 import model.ProjectPropertyDefinition;
-
 import javax.swing.table.AbstractTableModel;
-
-import view.table.Table;
 
 /** 
  * A TableModel to hold a DirEntry[] table. Shown above the file details panel. 
@@ -29,6 +25,12 @@ public class StatsTableModel extends AbstractTableModel {
 	 */
 	private boolean cellSizesSet = false;    
 	
+	private int nameColumnWidth = 130;
+	private int valueColumnWidth = 130;
+	
+	/**
+	 * Property data
+	 */
 	private List<StatsLine> data = null;
 	
 	public StatsTableModel(ProjectDirEntry file) throws Throwable {
@@ -115,11 +117,11 @@ public class StatsTableModel extends AbstractTableModel {
 	 * 
 	 * @param table
 	 */
-	public void setCellSizes(Table table) throws Throwable {
+	public void setCellSizes(StatsDialog dia) throws Throwable {
 		if (!cellSizesSet) {
 			// Set width for all fixed columns
-			table.setColumnWidth(0);
-			table.setColumnWidth(1);
+			dia.setColumnWidth(0, nameColumnWidth);
+			dia.setColumnWidth(1, valueColumnWidth);
 
 			cellSizesSet = true;
 		}
