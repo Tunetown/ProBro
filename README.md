@@ -112,9 +112,36 @@ Here is an example definition file like the one included in the repository:
 </projectdefinition>
 ```
 
-The project definition XML file must have the following structure:
+The project definition XML file must have the following structure, defined here by the XML tags. The main tag is **projectdefinition**, it has to be defined in the document. The first definition is parsed, all others are ignored.
 
-- It has to contain a main tag named "projectdefinition"
+#### Project Definition XML Syntax Reference
+
+###### Main Tag **projectdefinition**
+Defines a project definition, and contains all information about the definition.
+
+Attributes:
+- *name*: Name of the project definition (free text)
+
+Can contain:
+- Multiple tags **projectproperty** (at least one has to be defined) 
+- One tag **ignore** (only one can be defined, all further ones are ignored)
+
+###### Tag **projectproperty**
+
+###### Tag **ignore**
+
+
+
+
+
+
+
+
+
+
+
+
+It has to contain a main tag named "projectdefinition"
 	- Attributes:
 		- name: Name of the definition (not used currently)
 		
