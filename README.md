@@ -12,7 +12,7 @@ You can define the project structure you typically use with a XML file, which is
 
 The use case for me (and the reason this application has been developed) was to scan for DAW music projects made with ProTools and Logic Pro, and count the contained mix or master audio files there. I always have at least one of the folders named _MA (Masters), _MIX (Mixes), etc. in my audio projects, so these are defined as qualifiers for folders being detected as project folders. Also, the audio files and session file formats recognized are defined in XML, as well as different colors for different file types etc., which can be used to show the existence of compressed audio files for example. Also, the folders which have NOT been recognized as projects and are not contained in a project can be shown with the projects leftovers view (see Projects menu). 
 
-The given default XML configuration is my personal one, however, you can easily define your own project structures also for completely different kinds of projects like programming, webdesign, photography for example.  
+The given default XML configuration is my personal one, however, you can easily define your own project structures also for completely different kinds of projects like programming, web design, photography for example.  
 
 ## Features
 
@@ -150,49 +150,34 @@ Attributes:
 - none
 
 Can contain:
-- Multiple **"extension"** tags (at least one has to be defined)
+- Multiple **"extension"** tags (at least one has to be defined. However, the extension tag can have no attributes here, like in the project properties.)
 
 
 #### Tag "file"
+This defines a file name. If this file is found and it is set as qualifying, the folder containing it will be recognized as project. If the file is NOT qualifying, it just will be shown as table column, but the existence alone is not enough for the parent folder to be a project.
+
+Attributes:
+- *qualifying*: If set to true, the existence of the folder qualifies the project folder to really be recognized as a project.
+- *bgColor*: Defines the basic background color for table cells, if the property has been found. Syntax: "r;g;b". See also the *bgColor* attribute of the **"extension"** tag.
+- tableText: This text, if set, is shown if the property has been found. If not specified, the column will show the amount of matching files, see "extension" tag.
+
+Can contain:
+- none
+
 
 #### Tag "folder"
+This defines a folder name. If this folder is found and it is set as qualifying, the folder containing it will be recognized as project. If the folder is NOT qualifying, it just will be shown as table column and the files inside will be counted, but the existence alone is not enough for the parent folder to be a project.
+
+Attributes:
+- *qualifying*: If set to true, the existence of the folder qualifies the project folder to really be recognized as a project.
+- *bgColor*: Defines the basic background color for table cells, if the property has been found. Syntax: "r;g;b". See also the *bgColor* attribute of the **"extension"** tag.
+- tableText: This text, if set, is shown if the property has been found. If not specified, the column will show the amount of matching files, see "extension" tag.
+
+Can contain:
+- none
+
 
 #### Tag "extension"
-
-
-
-
-
-
-
-
-
-
-
-It has to contain a main tag named "projectdefinition"
-	- Attributes:
-		- name: Name of the definition (not used currently)
-		
-- Inside this tag, there can be several "projectproperty" tags. Each of these will be evaluated for
-  every file or folder inside a potential project folder. Also, each one will have a separate column in
-  the projects view table, by default showing 0 if the property has been found or "-" if not (see below for details).
-	- Attributes:
- 		- header: Must be set to show the property in the table as a column.
-
-- Inside each of these project properties, the following tags are parsed:
-  - "folder": This defines a folder name. If this folder is found directly as child of a folder, the
-              property is seen as found, and its target will be set to the found folder.
-				- Attributes:
- 					- qualifying: If set to true, the existence of the folder qualifies the project folder to 
- 	               really be recognized as a project.
- *                      - bgColor: Defines the base back color for table cells, if the property has been found. Syntax: "r;g;b"
- *                      - tableText: This text, if set, is shown if the property has been found. If not specified,
- *                                   the column will show the amount of matching files, see "extension" tag.
- *                                   
- *   	- "file": This defines a file name. If this file is found directly as child of a folder, the
- *                property is seen as found, and its target will be set to the found folder.
- *                - Attributes: same as for property "folder"
- *                
  *      - "extension": These extensions define the file (or folder) extensions which will be counted in one of these cases:
  *                     1. If a folder tag exists, all defined extensions will be searched here, and the count is shown in the table (if no tableText is defined)
  *                     2. If a file tag exists, this is  
@@ -206,11 +191,9 @@ It has to contain a main tag named "projectdefinition"
  *                          - recursive: If set to true, files will be searched deeply inside the target (see "extension" tag description above), if not set,
  *                                       only first level files and folders will be scanned.
  * 
- * - Also, there can be a "ignore" tag. Inside this, you can specify "extension" tags, which will be ignored as project folders. This
- *   can be handy because also the leftovers list ignores these...and for example, Logic creates folders as sessions, so these
- *   would show up in the leftovers view.
-
-
+ 
+ 
+ 
 # Release Note
 
 The application currently is in beta state. There could likely be some bugs, if you come across any issues, please let me know. 
