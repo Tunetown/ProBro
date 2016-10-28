@@ -123,15 +123,24 @@ Attributes:
 - *name*: Name of the project definition (free text)
 
 Can contain:
-- Multiple tags **"projectproperty"** (at least one has to be defined) 
-- One tag **"ignore"** (only one can be defined, all further ones are ignored)
+- Multiple **"projectproperty"** tags (at least one has to be defined) 
+- One **"ignore"** tag (only one can be defined optionally, all further ones are ignored)
+
 
 #### Tag "projectproperty"
 This defines the project structure we are searching for. 
-For each folder or file you have in every one of your projects, define one property. The properties can be defined as qualifying (see attributes): If one of the files and/or folders defined as qualifying is found, its parent folder will be detected as a project, and will show in the projects list. The files and folders are defined inside this tag with the **"folder"** and **"file"** tags. 
+
+For each folder or file you have in every one of your projects, define one property, and define the files/folders in there. The files/folders can be defined as qualifying (see tags **"file"** and **"folder"**): If one of the files and/or folders defined as qualifying is found, its parent folder will be detected as a project, and will show in the projects list. 
+
 In the user interface, the table in projects view shows one column for each property (qualifying or not), showing the count of relevant files inside this property folder. The file extensions you want to count have to be defined with **"extension"** tags.    
 
-TODO
+Attributes:
+- *header*: Header for table column in projects view. Must be set.
+
+Can contain:
+- Multiple **""file"** tags (optional, but at least one **"file"** or **"folder"** has to be there)
+- Multiple **"folder"** tags (optional, but at least one **"file"** or **"folder"** has to be there)
+- Multiple **"extension"** tags (at least one has to be defined) 
 
 
 #### Tag "ignore"
@@ -141,9 +150,14 @@ Attributes:
 - none
 
 Can contain:
-- Multiple tags **"extension"** (at least one has to be defined)
+- Multiple **"extension"** tags (at least one has to be defined)
 
 
+#### Tag "file"
+
+#### Tag "folder"
+
+#### Tag "extension"
 
 
 
