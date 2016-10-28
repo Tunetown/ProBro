@@ -150,7 +150,7 @@ Attributes:
 - none
 
 Can contain:
-- Multiple **"extension"** tags (at least one has to be defined. However, the extension tag can have no attributes here, like in the project properties.)
+- Multiple **"extension"** tags (at least one has to be defined. However, the extension tag can have no attributes here, like in the project properties, also just the content will be interpreted as file extensions without the dot.)
 
 
 #### Tag "file"
@@ -178,21 +178,18 @@ Can contain:
 
 
 #### Tag "extension"
- *      - "extension": These extensions define the file (or folder) extensions which will be counted in one of these cases:
- *                     1. If a folder tag exists, all defined extensions will be searched here, and the count is shown in the table (if no tableText is defined)
- *                     2. If a file tag exists, this is  
- *                     3. If no file or folder tags exist, files matching these extensions will be searched and counted directly in the project folder.
- *                     - Attributes:
- *                  		- qualifying: If set to true, the existence of a file of this type qualifies the project folder to 
- *                          	          really be recognized as a project.
- *                      	- bgColor: Defines the back color for table cells, if the extension has been found. The real back color
- *                                     will be between the base color (if set by the hitting folder tag) or the java standard table background color,
- *                                     the exact color being defined by the percentage of files with the extension. Syntax: "r;g;b"
- *                          - recursive: If set to true, files will be searched deeply inside the target (see "extension" tag description above), if not set,
- *                                       only first level files and folders will be scanned.
- * 
+These extensions (without the dot) define the file (or folder) extensions which will be counted in one of these cases:
+1. If a **"folder"** tag exists, all defined extensions will be searched here, and the count is shown in the table (if no tableText is defined)
+2. If a file tag exists, this is not regarded.  
+3. If no file or folder tags exist, files matching these extensions will be searched and counted directly in the project folder, and the count will be shown in the table if no *tableText* is defined..
+
+Attributes:
+- *qualifying*: If set to true, the existence of a file of this type qualifies the project folder to really be recognized as a project. The same option in a **"folder"** or **"file"** tab will override this.
+- *bgColor*: Defines the back color for table cells, if the extension has been found. The real back color will be between the base color (if set by the hitting folder tag) or the java standard table background color, being defined by the percentage of files found by the extension. Syntax: "r;g;b".
+- *recursive*: If set to true, files will be searched deeply inside the target, if not set, only first level files and folders will be scanned. 
  
- 
+Can contain:
+- none
  
 # Release Note
 
