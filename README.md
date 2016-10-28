@@ -36,6 +36,12 @@ Also, you will need the default project definition file, which should be downloa
 
 ## Further Details
 
+### Load Deep Info
+TODO
+
+### ZIP Functionality
+TODO
+
 ### Project Definition (XML)
 Here is an example definition file like the one included in the repository:
 
@@ -126,7 +132,6 @@ Can contain:
 - Multiple **"projectproperty"** tags (at least one has to be defined) 
 - One **"ignore"** tag (only one can be defined optionally, all further ones are ignored)
 
-
 #### Tag "projectproperty"
 This defines the project structure we are searching for. 
 
@@ -141,7 +146,6 @@ Can contain:
 - Multiple **""file"** tags (optional, but at least one **"file"** or **"folder"** has to be there)
 - Multiple **"folder"** tags (optional, but at least one **"file"** or **"folder"** has to be there)
 - Multiple **"extension"** tags (at least one has to be defined) 
-
 
 #### Tag "ignore"
 Here, you can define folder extensions which will be ignored during project search. This means, a folder with one of the defined extensions will NOT be included in neither the projects nor the leftovers list. This can be useful to ignore for example the .bak folders automatically created by Logic Pro.
@@ -164,7 +168,6 @@ Attributes:
 Can contain:
 - none
 
-
 #### Tag "folder"
 This defines a folder name. If this folder is found and it is set as qualifying, the folder containing it will be recognized as project. If the folder is NOT qualifying, it just will be shown as table column and the files inside will be counted, but the existence alone is not enough for the parent folder to be a project.
 
@@ -175,7 +178,6 @@ Attributes:
 
 Can contain:
 - none
-
 
 #### Tag "extension"
 These extensions (without the dot) define the file (or folder) extensions which will be counted in one of these cases:
@@ -191,6 +193,10 @@ Attributes:
 Can contain:
 - none
  
-# Release Note
+# Troubleshooting
+
+- **No window is shown**: Go to your home directory and delete the ProBroParameters.tmp file. 
+ 
+ # Release Note
 
 The application currently is in beta state. There could likely be some bugs, if you come across any issues, please let me know. 
