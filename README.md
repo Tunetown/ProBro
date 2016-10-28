@@ -123,12 +123,12 @@ Attributes:
 - *name*: Name of the project definition (free text)
 
 Can contain:
-- Multiple tags **projectproperty** (at least one has to be defined) 
-- One tag **ignore** (only one can be defined, all further ones are ignored)
+- Multiple tags **"projectproperty"** (at least one has to be defined) 
+- One tag **"ignore"** (only one can be defined, all further ones are ignored)
 
-###### Tag <projectproperty>
+###### Tag "projectproperty"
 
-###### Tag **ignore**
+###### Tag "ignore"
 
 
 
