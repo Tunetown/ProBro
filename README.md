@@ -36,7 +36,7 @@ Also, you will need the default project definition file, which should be downloa
 
 ## Further Details
 
-#### Project Definition (XML)
+### Project Definition (XML)
 Here is an example definition file like the one included in the repository:
 
 ```xml 
@@ -112,11 +112,11 @@ Here is an example definition file like the one included in the repository:
 </projectdefinition>
 ```
 
-The project definition XML file must have the following structure, defined here by the XML tags. The main tag is **projectdefinition**, it has to be defined in the document. The first definition is parsed, all others are ignored.
+The project definition XML file must have the following structure, defined here by the XML tags. The main tag is **"projectdefinition"**, it has to be defined in the document. The first definition is parsed, all others are ignored.
 
-#### Project Definition XML Syntax Reference
+### Project Definition XML Syntax Reference
 
-###### Main Tag **projectdefinition**
+#### Main Tag "projectdefinition"
 Defines a project definition, and contains all information about the definition.
 
 Attributes:
@@ -126,9 +126,23 @@ Can contain:
 - Multiple tags **"projectproperty"** (at least one has to be defined) 
 - One tag **"ignore"** (only one can be defined, all further ones are ignored)
 
-###### Tag "projectproperty"
+#### Tag "projectproperty"
+This defines the project structure we are searching for. 
+For each folder or file you have in every one of your projects, define one property. The properties can be defined as qualifying (see attributes): If one of the files and/or folders defined as qualifying is found, its parent folder will be detected as a project, and will show in the projects list. The files and folders are defined inside this tag with the **"folder"** and **"file"** tags. 
+In the user interface, the table in projects view shows one column for each property (qualifying or not), showing the count of relevant files inside this property folder. The file extensions you want to count have to be defined with **"extension"** tags.    
 
-###### Tag "ignore"
+TODO
+
+
+#### Tag "ignore"
+Here, you can define folder extensions which will be ignored during project search. This means, a folder with one of the defined extensions will NOT be included in neither the projects nor the leftovers list. This can be useful to ignore for example the .bak folders automatically created by Logic Pro.
+
+Attributes:
+- none
+
+Can contain:
+- Multiple tags **"extension"** (at least one has to be defined)
+
 
 
 
