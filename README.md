@@ -1,6 +1,6 @@
 # ProBro - The Project Browser
 
-Project Browser is a file system explorer/browser application with some features for project management, built upon a simple Java file browser implemented in Swing. 
+Project Browser is a file system explorer/browser application with some features for project management, built upon a simple Java file browser implemented in Swing by Andrew Thompson. 
 
 This application basically is a file browser, featuring a file system tree and a folder content table where you can select and display your file system, as well as a details panel for a selected file/folder. It additionally allows to load deep info of the selected folder with a button click, which enables the user to have all folder sizes determined recursively, which is very useful when cleaning up your hard disk for example.
 
@@ -37,10 +37,12 @@ Also, you will need the default project definition file, which should be downloa
 ## Further Details
 
 ### Load Deep Info
-TODO
+The file system explorers of most operating systems do not show the full size of folders in their overview lists. This file browser can. Just select a folder and click on "load deep info", and you can easily find out which of your projects is eating up the most HD space.
 
 ### ZIP Functionality
-TODO
+The program can also ZIP files and folders. This is done via the File menu. Select the file/folder and select ZIP from the File menu. The zipping process is then showed on the right in the processes panel, along with a progress bar. You can start multiple zipping processes in parallel. Also, you can cancel each on by double clicking it.
+
+NOTE: This uses the unixoid ZIP command on the command line, therefore this is not available on Windows. It has been developed and tested on OS X, but should run also on Linux systems as well.
 
 ### Project Definition (XML)
 Here is an example definition file like the one included in the repository:
